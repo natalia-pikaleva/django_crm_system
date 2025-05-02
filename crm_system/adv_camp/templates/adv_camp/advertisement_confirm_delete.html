@@ -1,0 +1,27 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Удаление рекламной кампании
+{% endblock %}
+
+{% block body %}
+<h1>Вы уверены, что хотите удалить рекламную кампанию #{{ object.pk }} {{ object.title }} ?</h1>
+<br>
+<div>
+    <a href="{% url 'advertisement:advertisement-detail' pk=object.pk %}" class="btn btn-secondary">Вернуться к рекламной кампанииуслуге</a>
+</div>
+<br>
+<div>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+  </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'advertisement:advertisement-list' %}" class="btn btn-secondary">Вернуться к списку рекламных кампаний</a>
+</div>
+{% endblock %}

@@ -62,9 +62,3 @@ class ServiceUpdateView(UpdateView):
 class ServiceDeleteView(DeleteView):
     model = Service
     success_url = reverse_lazy("services:service-list")
-
-
-"""
-Страницы для работы с услугами
-Рядом с ними нужно добавить кнопки для удаления
-"""

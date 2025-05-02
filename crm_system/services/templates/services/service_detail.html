@@ -15,15 +15,11 @@
 </div>
 <br>
 <div>
-    <form action="{% url 'services:service_update' pk=object.pk%}" method="get">
-        <button type="submit" class="btn btn-primary">Изменить услугу</button>
-    </form>
+    <a href="{% url 'services:service_update' pk=object.pk%}" class="btn btn-secondary">Изменить услугу</a>
 </div>
 <br>
 <div>
-    <form action="{% url 'services:service_delete' pk=object.pk%}" method="get">
-        <button type="submit" class="btn btn-danger">Удалить услугу</button>
-    </form>
+    <a href="{% url 'services:service_delete' pk=object.pk%}" class="btn btn-secondary">Удалить услугу</a>
 </div>
 <br>
 <div>

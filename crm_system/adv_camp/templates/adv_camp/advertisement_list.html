@@ -1,0 +1,33 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Список рекламных кампаний
+{% endblock %}
+
+{% block body %}
+<h1>Рекламные кампании</h1>
+<div class="list-group">
+    {% for adv_camp in object_list %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{% url 'advertisement:advertisement-detail' pk=adv_camp.pk %}">
+                    <h5 class="mb-1">Рекламная кампания #{{ adv_camp.pk }} {{ adv_camp.title }}</h5>
+                </a>
+                <p class="mb-1">Услуга: {{ adv_camp.service.title }}</p>
+                <small class="text-muted">Бюджет {{ adv_camp.budget }}</small>
+            </div>
+            <a href="{% url 'advertisement:advertisement_delete' pk=adv_camp.pk %}" class="btn btn-sm btn-danger">
+                Удалить
+            </a>
+        </div>
+    {% empty %}
+        <div class="list-group-item">Рекламных кампаний еще нет</div>
+    {% endfor %}
+</div>
+
+<div>
+    <a href="{% url 'advertisement:advertisement_create' %}" class="btn btn-secondary">Создать новую рекламную кампанию</a>
+</div>
+{% endblock %}
