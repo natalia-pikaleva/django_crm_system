@@ -9,8 +9,8 @@ class Service(models.Model):
 
     class Meta:
         ordering = ["title", "price"]
-        verbose_name = "service"
-        verbose_name_plural = "services"
+        verbose_name = "Service"
+        verbose_name_plural = "Services"
 
     title = models.CharField(max_length=100, db_index=True, unique=True)
     description = models.TextField(null=False, blank=True, db_index=True)

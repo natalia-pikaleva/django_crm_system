@@ -1,0 +1,29 @@
+{% extends 'adv_camp/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Потенциальный клиент #{{ object.fullName }}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Потенциальный клиент #{{ object.pk }} {{ object.fullName }}</h1>
+        <p class="card-text">Телефон: {{ object.phone }}</p>
+        <p class="card-text">Email: {{ object.email }} руб.</p>
+        <p class="card-text">Рекламная кампания (источник): {{ object.advertisement.title }}</p>
+</div>
+<br>
+<div>
+    <a href="{% url 'clients:client_update' pk=object.pk %}"  class="btn btn-secondary">Изменить информацию о клиенте</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'clients:client_delete' pk=object.pk %}" class="btn btn-secondary">Удалить информацию о клиенте</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'clients:client-list' %}" class="btn btn-secondary">Вернуться к списку потенциальных клиентов</a>
+</div>
+{% endblock %}

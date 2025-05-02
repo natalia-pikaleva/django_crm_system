@@ -1,0 +1,31 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Список потенциальных клиентов
+{% endblock %}
+
+{% block body %}
+<h1>Потенциальные клиенты</h1>
+<div class="list-group">
+    {% for client in object_list %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{% url 'clients:client-detail' pk=client.pk %}">
+                    <h5 class="mb-1">#{{ client.pk }} {{ client.fullName }}</h5>
+                </a>
+            </div>
+            <a href="{% url 'clients:client_delete' pk=client.pk %}" class="btn btn-sm btn-danger">
+                Удалить
+            </a>
+        </div>
+    {% empty %}
+        <div class="list-group-item">Потенциальных клиентов еще нет</div>
+    {% endfor %}
+</div>
+
+<div>
+    <a href="{% url 'clients:client_create' %}" class="btn btn-secondary">Создать запись о потенциальном клиенте</a>
+</div>
+{% endblock %}

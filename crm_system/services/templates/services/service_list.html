@@ -15,9 +15,6 @@
                 <a href="{% url 'services:service-detail' pk=service.pk %}">
                     <h5 class="mb-1">Услуга #{{ service.pk }} {{ service.title }}</h5>
                 </a>
-                    <p class="mb-1">Описание: {{ service.description }}</p>
-                    <small class="text-muted">Стоимость {{ service.price }}</small>
-
             </div>
             <a href="{% url 'services:service_delete' pk=service.pk %}" class="btn btn-sm btn-danger">
                 Удалить

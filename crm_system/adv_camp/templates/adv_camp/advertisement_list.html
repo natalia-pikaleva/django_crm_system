@@ -15,8 +15,6 @@
                 <a href="{% url 'advertisement:advertisement-detail' pk=adv_camp.pk %}">
                     <h5 class="mb-1">Рекламная кампания #{{ adv_camp.pk }} {{ adv_camp.title }}</h5>
                 </a>
-                <p class="mb-1">Услуга: {{ adv_camp.service.title }}</p>
-                <small class="text-muted">Бюджет {{ adv_camp.budget }}</small>
             </div>
             <a href="{% url 'advertisement:advertisement_delete' pk=adv_camp.pk %}" class="btn btn-sm btn-danger">
                 Удалить
