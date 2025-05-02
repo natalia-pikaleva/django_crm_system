@@ -23,8 +23,4 @@ class Service(models.Model):
         return self.description[:48] + "..."
 
     def __str__(self) -> str:
-        return f"Service (pk={self.pk}, title={self.title!r})"
-
-    # TODO прописать url при необходимости
-    # def get_absolute_url(self):
-    #     return reverse("shopapp:product_details", kwargs={"pk": self.pk})
+        return f"Услуга #{self.pk} {self.title!r}"
