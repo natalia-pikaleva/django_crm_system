@@ -1,0 +1,41 @@
+{% extends 'adv_camp/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Контракт #{{ object.pk }} {{ object.title }}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Контракт #{{ object.pk }} {{ object.title }}</h1>
+        <p class="card-text">Дата заключения: {{ object.created_at }}</p>
+        <p class="card-text">Период действия: {{ object.validity_period }} руб.</p>
+        <p class="card-text">Услуга: {{ object.service.title }}</p>
+        <p class="card-text">Сумма: {{ object.amount }} руб.</p>
+        {% if object.file %}
+        <p class="card-text">
+            Файл с документом:
+            <a href="{{ object.file.url }}" target="_blank" class="btn btn-primary">
+                Открыть файл
+            </a>
+        </p>
+        {% else %}
+        <p class="card-text text-muted">Файл с документом отсутствует</p>
+        {% endif %}
+
+</div>
+<br>
+<div>
+    <a href="{% url 'contracts:contract_update' pk=object.pk %}"  class="btn btn-secondary">Изменить информацию о контракте</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'contracts:contract_delete' pk=object.pk %}" class="btn btn-secondary">Удалить контракт</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'contracts:contract-list' %}" class="btn btn-secondary">Вернуться к списку контрактов</a>
+</div>
+{% endblock %}
