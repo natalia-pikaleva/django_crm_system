@@ -1,0 +1,31 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Список контрактов
+{% endblock %}
+
+{% block body %}
+<h1>Контракты</h1>
+<div class="list-group">
+    {% for contract in object_list %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{% url 'contracts:contract-detail' pk=contract.pk %}">
+                    <h5 class="mb-1">Контракт #{{ contract.pk }} {{ contract.title }}</h5>
+                </a>
+            </div>
+            <a href="{% url 'contracts:contract_delete' pk=contract.pk %}" class="btn btn-sm btn-danger">
+                Удалить
+            </a>
+        </div>
+    {% empty %}
+        <div class="list-group-item">Контрактов еще нет</div>
+    {% endfor %}
+</div>
+
+<div>
+    <a href="{% url 'contracts:contract_create' %}" class="btn btn-secondary">Создать новый контракт</a>
+</div>
+{% endblock %}

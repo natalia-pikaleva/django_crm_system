@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -41,10 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_bootstrap5',
+    'bootstrap_datepicker_plus',
 
     'services.apps.ServicesConfig',
     'adv_camp.apps.AdvCampConfig',
     'clients.apps.ClientsConfig',
+    'contracts.apps.ContractsConfig',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +142,6 @@ REST_FRAMEWORK = {
         # 'rest_framework.renderers.TemplateHTMLRenderer',  # закомментируйте, если не нужен HTML
     ]
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

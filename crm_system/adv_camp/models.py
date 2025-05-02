@@ -15,7 +15,7 @@ class Advertisement(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     promotion_channel = models.CharField(max_length=100, db_index=True)
     budget = models.DecimalField(default=0, max_digits=8, decimal_places=2)
-    service = models.ForeignKey(Service, on_delete=models.SET_NULL, related_name='advertisement', null=True, blank=True)
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, related_name='advertisements', null=True, blank=True)
 
 
     def __str__(self) -> str:
