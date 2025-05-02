@@ -19,5 +19,5 @@ class Advertisement(models.Model):
 
 
     def __str__(self) -> str:
-        return f"Advertisement campaign #{self.pk} {self.title!r}"
+        return f"Рекламная кампания #{self.pk} {self.title!r}"
 
