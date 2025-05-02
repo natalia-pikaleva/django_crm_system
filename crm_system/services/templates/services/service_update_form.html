@@ -1,0 +1,20 @@
+{% extends 'services/base.html' %}
+
+{% block title %}
+Изменение услуги
+{% endblock %}
+
+{% block body %}
+<h1>Изменение услуги</h1>
+<div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Изменить</button>
+    </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'services:service-detail' pk=service.pk %}" class="btn btn-secondary">Вернуться к услуге</a>
+</div>
+{% endblock %}

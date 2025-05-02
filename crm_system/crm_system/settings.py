@@ -25,7 +25,10 @@ SECRET_KEY = 'django-insecure-zd&3n#$&*@w97xf6)lf&cx4ak9^57#_eg&pdhesi1o+fc$l&(e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "0.0.0.0",
+    "127.0.0.1",
+]
 
 
 # Application definition
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
 
     'services.apps.ServicesConfig',
     'adv_camp.apps.AdvCampConfig',
@@ -127,3 +131,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        # 'rest_framework.renderers.TemplateHTMLRenderer',  # закомментируйте, если не нужен HTML
+    ]
+}
