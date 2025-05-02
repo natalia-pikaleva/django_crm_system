@@ -1,0 +1,32 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Услуга #{{ object.pk }}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Услуга #{{ object.pk }} {{ object.title }}</h1>
+        <p class="card-text">Описание: {{ object.description }}</p>
+        <p class="card-text">Стоимость: {{ object.price }} руб.</p>
+</div>
+<br>
+<div>
+    <form action="{% url 'services:service_update' pk=object.pk%}" method="get">
+        <button type="submit" class="btn btn-primary">Изменить услугу</button>
+    </form>
+</div>
+<br>
+<div>
+    <form action="{% url 'services:service_delete' pk=object.pk%}" method="get">
+        <button type="submit" class="btn btn-danger">Удалить услугу</button>
+    </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'services:service-list' %}" class="btn btn-secondary">Вернуться к списку услуг</a>
+</div>
+{% endblock %}

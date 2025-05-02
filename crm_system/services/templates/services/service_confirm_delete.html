@@ -1,0 +1,27 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Удаление услуги
+{% endblock %}
+
+{% block body %}
+<h1>Вы уверены, что хотите удалить услугу #{{ object.pk }} {{ object.title }} ?</h1>
+<br>
+<div>
+    <a href="{% url 'services:service-detail' pk=object.pk %}" class="btn btn-secondary">Вернуться к услуге</a>
+</div>
+<br>
+<div>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+  </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'services:service-list' %}" class="btn btn-secondary">Вернуться к списку услуг</a>
+</div>
+{% endblock %}

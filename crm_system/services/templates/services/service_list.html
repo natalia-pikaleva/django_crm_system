@@ -1,0 +1,25 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Список услуг
+{% endblock %}
+
+{% block body %}
+<h1>Услуги</h1>
+<div class="list-group">
+    {% for service in object_list %}
+        <a href="{% url 'services:service-detail' pk=service.pk %}" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">Услуга #{{ service.pk }} {{ service.title }}</h5>
+            <p class="mb-1">Описание: {{ service.description }}</p>
+            <small class="text-muted">Стоимость {{ service.price }}</small>
+        </a>
+    {% empty %}
+        <div class="list-group-item">Услуг еще нет</div>
+    {% endfor %}
+</div>
+<div>
+    <a href="{% url 'services:service_create' %}" class="btn btn-secondary">Создать новую услугу</a>
+</div>
+{% endblock %}
