@@ -1,0 +1,29 @@
+{% extends 'services/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Удаление клиента
+{% endblock %}
+
+{% block body %}
+<h1>Вы уверены, что хотите удалить активного клиента #{{ object.pk }}
+    <br>
+    {{ object.client.fullName }} ?</h1>
+<br>
+<div>
+    <a href="{% url 'active_clients:activeclient-detail' pk=object.pk %}" class="btn btn-secondary">Вернуться к клиенту</a>
+</div>
+<br>
+<div>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-danger">Удалить</button>
+  </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'active_clients:activeclient-list' %}" class="btn btn-secondary">Вернуться к списку клиентов</a>
+</div>
+{% endblock %}

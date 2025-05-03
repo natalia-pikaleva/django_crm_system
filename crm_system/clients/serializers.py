@@ -10,6 +10,6 @@ class ClientSerializer(serializers.ModelSerializer):
             "fullName",
             "phone",
             "email",
-            "advertisement"
+            "advertisement",
         )
 

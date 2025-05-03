@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'adv_camp.apps.AdvCampConfig',
     'clients.apps.ClientsConfig',
     'contracts.apps.ContractsConfig',
+    'active_clients.apps.ActiveClientsConfig',
 ]
 
 MIDDLEWARE = [
