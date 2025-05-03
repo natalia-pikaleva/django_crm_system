@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 
 from .models import Client
 from .serializers import ClientSerializer
