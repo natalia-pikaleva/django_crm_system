@@ -25,6 +25,7 @@ urlpatterns = [
     path('advertisement/', include("adv_camp.urls")),
     path('clients/', include("clients.urls")),
     path('contracts/', include("contracts.urls")),
+    path('active-clients/', include("active_clients.urls")),
 
 ]
 

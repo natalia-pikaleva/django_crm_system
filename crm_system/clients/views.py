@@ -2,11 +2,12 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView)
-from django.shortcuts import reverse
+from django.urls import reverse
 from django.urls import reverse_lazy
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
+from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 
 from .models import Client
 from .serializers import ClientSerializer
@@ -46,7 +47,19 @@ class ClientViewSet(ModelViewSet):
 class ClientCreateView(CreateView):
     model = Client
     fields = "fullName", "phone", "email", "advertisement"
-    success_url = reverse_lazy("clients:client-list")
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            # Добавляем client_id к URL next
+            from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
+
+            url_parts = list(urlparse(next_url))
+            query = parse_qs(url_parts[4])
+            query['client_id'] = [str(self.object.pk)]
+            url_parts[4] = urlencode(query, doseq=True)
+            return urlunparse(url_parts)
+        return reverse_lazy('clients:client-list')
 
 class ClientUpdateView(UpdateView):
     model = Client

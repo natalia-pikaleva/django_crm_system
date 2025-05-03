@@ -7,10 +7,12 @@ from django.urls import reverse_lazy
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
+from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 
 from .models import Contract
 from .serializers import ContractSerializer
 from .forms import ContractForm
+
 
 class ContractViewSet(ModelViewSet):
     """
@@ -46,7 +48,21 @@ class ContractViewSet(ModelViewSet):
 class ContractCreateView(CreateView):
     model = Contract
     form_class = ContractForm
-    success_url = reverse_lazy("contracts:contract-list")
+
+    def get_success_url(self):
+        next_url = self.request.GET.get('next')
+        if next_url:
+            from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
+
+            url_parts = list(urlparse(next_url))
+            query = parse_qs(url_parts[4])
+            # Добавляем новый контракт к уже существующим contract_ids, если есть
+            existing_ids = query.get('contract_ids', [])
+            existing_ids.append(str(self.object.pk))
+            query['contract_ids'] = existing_ids
+            url_parts[4] = urlencode(query, doseq=True)
+            return urlunparse(url_parts)
+        return reverse_lazy('contracts:contract-list')
 
 
 class ContractUpdateView(UpdateView):

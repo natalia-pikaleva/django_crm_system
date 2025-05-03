@@ -17,7 +17,6 @@ class Advertisement(models.Model):
     budget = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     service = models.ForeignKey(Service, on_delete=models.SET_NULL, related_name='advertisements', null=True, blank=True)
 
-
     def __str__(self) -> str:
         return f"Рекламная кампания #{self.pk} {self.title!r}"
 
