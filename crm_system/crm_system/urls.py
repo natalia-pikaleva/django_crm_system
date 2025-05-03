@@ -28,6 +28,7 @@ urlpatterns = [
     path('clients/', include("clients.urls")),
     path('contracts/', include("contracts.urls")),
     path('active-clients/', include("active_clients.urls")),
+    path('myauth/', include("myauth.urls")),
     path('', IndexView.as_view(), name="index"),
 ]
 
