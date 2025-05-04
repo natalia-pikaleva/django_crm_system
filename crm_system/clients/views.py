@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -12,11 +13,12 @@ from .models import Client
 from .serializers import ClientSerializer
 
 
-class ClientViewSet(ModelViewSet):
+class ClientViewSet(PermissionRequiredMixin, ModelViewSet):
     """
     Набор представлений для действий над Client.
     Полный CRUD для сущностей товара
     """
+    permission_required = "clients.view_client"
     renderer_classes = [TemplateHTMLRenderer]
     queryset = Client.objects.select_related("advertisement").all()
     serializer_class = ClientSerializer
@@ -43,7 +45,8 @@ class ClientViewSet(ModelViewSet):
         return Response(context)
 
 
-class ClientCreateView(CreateView):
+class ClientCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = "clients.add_client"
     model = Client
     fields = "fullName", "phone", "email", "advertisement"
 
@@ -60,7 +63,8 @@ class ClientCreateView(CreateView):
             return urlunparse(url_parts)
         return reverse_lazy('clients:client-list')
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = "clients.change_client"
     model = Client
     fields = "fullName", "phone", "email", "advertisement"
     template_name_suffix = "_update_form"
@@ -71,6 +75,7 @@ class ClientUpdateView(UpdateView):
             kwargs={"pk": self.object.pk},
         )
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "clients.delete_client"
     model = Client
     success_url = reverse_lazy("clients:client-list")

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Потенциальный клиент #{{ object.fullName }}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Пользователь {{ object.username }}</h1>
+        {% for group in object.groups.all %}
+        <p class="card-text">Роль: {{ group }}</p>
+        {% endfor %}
+        <p class="card-text">Email: {{ object.email }}</p>
+</div>
+<br>
+<div>
+    <a href="{% url 'myauth:password_update' pk=object.pk %}"  class="btn btn-secondary">Изменить пароль</a>
+</div>
+
+{% endblock %}

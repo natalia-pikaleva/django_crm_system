@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -12,11 +13,12 @@ from .models import Service
 from .serializers import ServiceSerializer
 
 
-class ServiceViewSet(ModelViewSet):
+class ServiceViewSet(PermissionRequiredMixin, ModelViewSet):
     """
     Набор представлений для действий над Service.
     Полный CRUD для сущностей товара
     """
+    permission_required = "services.view_service"
     renderer_classes = [TemplateHTMLRenderer]
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
@@ -43,12 +45,16 @@ class ServiceViewSet(ModelViewSet):
         return Response(context)
 
 
-class ServiceCreateView(CreateView):
+class ServiceCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = "services.add_service"
+
     model = Service
     fields = "title", "price", "description"
     success_url = reverse_lazy("services:service-list")
 
-class ServiceUpdateView(UpdateView):
+class ServiceUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = "services.change_service"
+
     model = Service
     fields = "title", "price", "description"
     template_name_suffix = "_update_form"
@@ -59,6 +65,8 @@ class ServiceUpdateView(UpdateView):
             kwargs={"pk": self.object.pk},
         )
 
-class ServiceDeleteView(DeleteView):
+class ServiceDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "services.delete_service"
+
     model = Service
     success_url = reverse_lazy("services:service-list")

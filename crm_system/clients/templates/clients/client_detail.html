@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load i18n %}
-
 {% block title %}
 Потенциальный клиент #{{ object.fullName }}
 {% endblock %}
@@ -9,7 +7,9 @@
 {% block body %}
 <div class="card">
     <div class="card-body">
-        <h1 class="card-title">Потенциальный клиент #{{ object.pk }} {{ object.fullName }}</h1>
+        <h1 class="card-title">Потенциальный клиент #{{ object.pk }}
+            <br> {{ object.fullName }}</h1>
+        <br>
         <p class="card-text">Телефон: {{ object.phone }}</p>
         <p class="card-text">Email: {{ object.email }} руб.</p>
         <p class="card-text">Рекламная кампания (источник): {{ object.advertisement.title }}</p>
