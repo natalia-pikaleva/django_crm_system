@@ -10,8 +10,8 @@
 <div class="card">
     <div class="card-body">
         <h1 class="card-title">Контракт #{{ object.pk }} {{ object.title }}</h1>
-        <p class="card-text">Дата заключения: {{ object.created_at }}</p>
-        <p class="card-text">Период действия: {{ object.validity_period }} руб.</p>
+        <p class="card-text">Дата заключения: {{ object.created_at|date:"d.m.Y" }}</p>
+        <p class="card-text">Период действия: {{ object.start_date|date:"d.m.Y" }} - {{ object.end_date|date:"d.m.Y" }}</p>
         <p class="card-text">Услуга: {{ object.service.title }}</p>
         <p class="card-text">Сумма: {{ object.amount }} руб.</p>
         {% if object.file %}
