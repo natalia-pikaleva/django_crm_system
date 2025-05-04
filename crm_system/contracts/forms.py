@@ -12,9 +12,31 @@ class ContractForm(forms.ModelForm):
 
     class Meta:
         model = Contract
-        fields = '__all__'
+        fields = (
+            'title',
+            'created_at',
+            'start_date',
+            'end_date',
+            'amount',
+            'service',
+            'file',
+            'client')
+
+        labels = {
+            'title': 'Название',
+            'created_at': 'Дата заключения контракта',
+            'start_date': 'Дата начала',
+            'end_date': 'Дата окончания',
+            'amount': 'Сумма',
+            'service': 'Услуга',
+            'file': 'Документ',
+            'client': 'Клиент'
+        }
+
         widgets = {
             'created_at': DatePickerInput(format='%Y-%m-%d').start_of('day'),
+            'start_date': DatePickerInput(format='%Y-%m-%d').start_of('day'),
+            'end_date': DatePickerInput(format='%Y-%m-%d').start_of('day'),
         }
 
     def save(self, commit=True):
