@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
+
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -13,11 +15,13 @@ from .serializers import ActiveClientSerializer
 from .forms import ActiveClientForm
 
 
-class ActiveClientViewSet(ModelViewSet):
+class ActiveClientViewSet(PermissionRequiredMixin, ModelViewSet):
     """
     Набор представлений для действий над ActiveClient.
     Полный CRUD для сущностей товара
     """
+    permission_required = "active_clients.view_activeclient"
+
     renderer_classes = [TemplateHTMLRenderer]
     queryset = ActiveClient.objects.select_related("client").all()
     serializer_class = ActiveClientSerializer
@@ -44,7 +48,9 @@ class ActiveClientViewSet(ModelViewSet):
         return Response(context)
 
 
-class ActiveClientCreateView(CreateView):
+class ActiveClientCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = "active_clients.add_activeclient"
+
     model = ActiveClient
     form_class = ActiveClientForm
     success_url = reverse_lazy("active_clients:activeclient-list")
@@ -70,7 +76,9 @@ class ActiveClientCreateView(CreateView):
         return super().form_valid(form)
 
 
-class ActiveClientUpdateView(UpdateView):
+class ActiveClientUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = "active_clients.change_activeclient"
+
     model = ActiveClient
     form_class = ActiveClientForm
     template_name_suffix = "_update_form"
@@ -102,6 +110,8 @@ class ActiveClientUpdateView(UpdateView):
         )
 
 
-class ActiveClientDeleteView(DeleteView):
+class ActiveClientDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = "active_clients.delete_activeclient"
+
     model = ActiveClient
     success_url = reverse_lazy("active_clients:active_client-list")

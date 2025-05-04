@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+Рекламные кампании и клиенты:
+  {% for record in info_clients %}
+    <ul>{{ record.advertisement__title }}: {{ record.clients_count }}</ul>
+  {% endfor %}
+<br>
+<p>Всего потенциальных клиентов: {{ info_active_clients.count_clients }}</p>
+<p>Количество активных клиентов: {{ info_active_clients.count_active_clients }}</p>
+{% endblock %}

@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'clients.apps.ClientsConfig',
     'contracts.apps.ContractsConfig',
     'active_clients.apps.ActiveClientsConfig',
-    'myauth.apps.MyAuthConfig'
+    'myauth.apps.MyAuthConfig',
+    'statistic.apps.StatisticConfig',
 ]
 
 MIDDLEWARE = [
