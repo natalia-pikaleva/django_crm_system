@@ -114,11 +114,21 @@
 	<nav class="sidebar">
 	  <ul class="menu">
 		  <li><a href="#">Главная</a></li>
-		  <li><a href="{% url 'services:service-list' %}">Услуги</a></li>
-		  <li><a href="{% url 'advertisement:advertisement-list' %}">Рекламные кампании</a></li>
-		  <li><a href="{% url 'clients:client-list' %}">Потенциальные клиенты</a></li>
-		  <li><a href="{% url 'contracts:contract-list' %}">Контракты</a></li>
-		  <li><a href="{% url 'active_clients:activeclient-list' %}">Активные клиенты</a></li>
+		  {% if perms.services.view_service %}
+		    <li><a href="{% url 'services:service-list' %}">Услуги</a></li>
+		  {% endif %}
+		  {% if perms.adv_camp.view_advertisement %}
+		    <li><a href="{% url 'advertisement:advertisement-list' %}">Рекламные кампании</a></li>
+		  {% endif %}
+		  {% if perms.clients.view_client %}
+		    <li><a href="{% url 'clients:client-list' %}">Потенциальные клиенты</a></li>
+		  {% endif %}
+		  {% if perms.contracts.view_contract %}
+		    <li><a href="{% url 'contracts:contract-list' %}">Контракты</a></li>
+		  {% endif %}
+		  {% if perms.active_clients.view_activeclient %}
+		    <li><a href="{% url 'active_clients:activeclient-list' %}">Активные клиенты</a></li>
+		  {% endif %}
 		  <li><a href="{% url 'statistic:statistic' %}">Статистика</a></li>
 	  </ul>
 	</nav>
