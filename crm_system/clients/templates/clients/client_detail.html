@@ -16,11 +16,15 @@
 </div>
 <br>
 <div>
-    <a href="{% url 'clients:client_update' pk=object.pk %}"  class="btn btn-secondary">Изменить информацию о клиенте</a>
+    {% if perms.clients.change_client %}
+        <a href="{% url 'clients:client_update' pk=object.pk %}"  class="btn btn-secondary">Изменить информацию о клиенте</a>
+    {% endif %}
 </div>
 <br>
 <div>
-    <a href="{% url 'clients:client_delete' pk=object.pk %}" class="btn btn-secondary">Удалить информацию о клиенте</a>
+    {% if perms.clients.delete_client %}
+        <a href="{% url 'clients:client_delete' pk=object.pk %}" class="btn btn-secondary">Удалить информацию о клиенте</a>
+    {% endif %}
 </div>
 <br>
 <div>

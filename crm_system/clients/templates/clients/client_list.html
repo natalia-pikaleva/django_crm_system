@@ -16,9 +16,11 @@
                     <h5 class="mb-1">#{{ client.pk }} {{ client.fullName }}</h5>
                 </a>
             </div>
-            <a href="{% url 'clients:client_delete' pk=client.pk %}" class="btn btn-sm btn-danger">
-                Удалить
-            </a>
+            {% if perms.clients.delete_client %}
+                <a href="{% url 'clients:client_delete' pk=client.pk %}" class="btn btn-sm btn-danger">
+                    Удалить
+                </a>
+            {% endif %}
         </div>
     {% empty %}
         <div class="list-group-item">Потенциальных клиентов еще нет</div>
