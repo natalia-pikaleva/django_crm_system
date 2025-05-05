@@ -8,6 +8,19 @@
 
 {% block body %}
 <h1>Контракты</h1>
+<div class="mb-3">
+    <form method="get">
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Найти</button>
+          <input name="search_text" type="text" class="form-control" placeholder="Введите текст для поиска" value="{{ search_text }}" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
+    </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'contracts:contract_create' %}" class="btn btn-secondary">Создать новый контракт</a>
+</div>
+<br>
 <div class="list-group">
     {% for contract in object_list %}
         <div class="list-group-item d-flex justify-content-between align-items-center">
@@ -21,11 +34,12 @@
             </a>
         </div>
     {% empty %}
-        <div class="list-group-item">Контрактов еще нет</div>
-    {% endfor %}
-</div>
+        {% if search_text %}
+            <div class="list-group-item">По вашему запросу контракты не найдены</div>
+        {% else %}
+            <div class="list-group-item">Контрактов еще нет</div>
+        {% endif %}
 
-<div>
-    <a href="{% url 'contracts:contract_create' %}" class="btn btn-secondary">Создать новый контракт</a>
+    {% endfor %}
 </div>
 {% endblock %}
