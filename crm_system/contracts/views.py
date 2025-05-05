@@ -32,9 +32,14 @@ class ContractViewSet(ModelViewSet):
         return super().get_template_names()
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
+        search_text = request.GET.get('search_text', '')
+        queryset = self.get_queryset()
+        if search_text:
+            queryset = queryset.filter(title__icontains=search_text)
+
         context = {
             'object_list': queryset,
+            'search_text': search_text,
         }
         return Response(context)
 
