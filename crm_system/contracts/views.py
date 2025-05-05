@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
     CreateView,
@@ -15,13 +15,11 @@ from .serializers import ContractSerializer
 from .forms import ContractForm
 
 
-class ContractViewSet(PermissionRequiredMixin, ModelViewSet):
+class ContractViewSet(ModelViewSet):
     """
     Набор представлений для действий над Contract.
     Полный CRUD для сущностей товара
     """
-    permission_required = "contracts.view_contract"
-
     renderer_classes = [TemplateHTMLRenderer]
     queryset = Contract.objects.select_related("service").all()
     serializer_class = ContractSerializer
@@ -48,8 +46,9 @@ class ContractViewSet(PermissionRequiredMixin, ModelViewSet):
         return Response(context)
 
 
-class ContractCreateView(PermissionRequiredMixin, CreateView):
+class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "contracts.add_contract"
+    raise_exception = True
 
     model = Contract
     form_class = ContractForm
@@ -70,8 +69,9 @@ class ContractCreateView(PermissionRequiredMixin, CreateView):
         return reverse_lazy('contracts:contract-list')
 
 
-class ContractUpdateView(PermissionRequiredMixin, UpdateView):
+class ContractUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "contracts.change_contract"
+    raise_exception = True
 
     model = Contract
     form_class = ContractForm
@@ -84,8 +84,9 @@ class ContractUpdateView(PermissionRequiredMixin, UpdateView):
         )
 
 
-class ContractDeleteView(PermissionRequiredMixin, DeleteView):
+class ContractDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "contracts.delete_contract"
+    raise_exception = True
 
     model = Contract
     success_url = reverse_lazy("contracts:contract-list")

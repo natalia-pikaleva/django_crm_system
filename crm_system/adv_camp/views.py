@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
     CreateView,
@@ -14,13 +14,11 @@ from .models import Advertisement
 from .serializers import AdvertisementSerializer
 
 
-class AdvCampViewSet(PermissionRequiredMixin, ModelViewSet):
+class AdvCampViewSet(ModelViewSet):
     """
     Набор представлений для действий над Advertisement.
     Полный CRUD для сущностей товара
     """
-    permission_required = "adv_camp.view_advertisement"
-
     renderer_classes = [TemplateHTMLRenderer]
     queryset = Advertisement.objects.select_related("service").all()
     serializer_class = AdvertisementSerializer
@@ -47,16 +45,18 @@ class AdvCampViewSet(PermissionRequiredMixin, ModelViewSet):
         return Response(context)
 
 
-class AdvCampCreateView(PermissionRequiredMixin, CreateView):
+class AdvCampCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "adv_camp.add_advertisement"
+    raise_exception = True
 
     model = Advertisement
     fields = "title", "promotion_channel", "budget", "service"
     success_url = reverse_lazy("advertisement:advertisement-list")
 
 
-class AdvCampUpdateView(PermissionRequiredMixin, UpdateView):
+class AdvCampUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "adv_camp.change_advertisement"
+    raise_exception = True
 
     model = Advertisement
     fields = "title", "promotion_channel", "budget", "service"
@@ -69,8 +69,9 @@ class AdvCampUpdateView(PermissionRequiredMixin, UpdateView):
         )
 
 
-class AdvCampDeleteView(PermissionRequiredMixin, DeleteView):
+class AdvCampDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "adv_camp.delete_advertisement"
+    raise_exception = True
 
     model = Advertisement
     success_url = reverse_lazy("advertisement:advertisement-list")

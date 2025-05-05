@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -13,12 +13,11 @@ from .models import Service
 from .serializers import ServiceSerializer
 
 
-class ServiceViewSet(PermissionRequiredMixin, ModelViewSet):
+class ServiceViewSet(ModelViewSet):
     """
     Набор представлений для действий над Service.
     Полный CRUD для сущностей товара
     """
-    permission_required = "services.view_service"
     renderer_classes = [TemplateHTMLRenderer]
     queryset = Service.objects.all()
     serializer_class = ServiceSerializer
@@ -45,15 +44,17 @@ class ServiceViewSet(PermissionRequiredMixin, ModelViewSet):
         return Response(context)
 
 
-class ServiceCreateView(PermissionRequiredMixin, CreateView):
+class ServiceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "services.add_service"
+    raise_exception = True
 
     model = Service
     fields = "title", "price", "description"
     success_url = reverse_lazy("services:service-list")
 
-class ServiceUpdateView(PermissionRequiredMixin, UpdateView):
+class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "services.change_service"
+    raise_exception = True
 
     model = Service
     fields = "title", "price", "description"
@@ -65,8 +66,9 @@ class ServiceUpdateView(PermissionRequiredMixin, UpdateView):
             kwargs={"pk": self.object.pk},
         )
 
-class ServiceDeleteView(PermissionRequiredMixin, DeleteView):
+class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "services.delete_service"
+    raise_exception = True
 
     model = Service
     success_url = reverse_lazy("services:service-list")
