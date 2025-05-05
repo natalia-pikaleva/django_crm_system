@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
@@ -24,9 +25,11 @@ class AdvCampViewSet(ModelViewSet):
     serializer_class = AdvertisementSerializer
 
     def get_template_names(self):
+        """Переопределение шаблонов для списка и для просмотра элемента"""
         if self.action == 'list':
             return ['adv_camp/advertisement_list.html']
-        elif self.action == 'retrieve':
+
+        if self.action == 'retrieve':
             return ['adv_camp/advertisement_detail.html']
         return super().get_template_names()
 
@@ -51,6 +54,7 @@ class AdvCampViewSet(ModelViewSet):
 
 
 class AdvCampCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """Класс реализует добавление объекта Рекламная кампания"""
     permission_required = "adv_camp.add_advertisement"
     raise_exception = True
 
@@ -60,6 +64,7 @@ class AdvCampCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
 
 
 class AdvCampUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """Класс реализует изменение объекта Рекламная кампания"""
     permission_required = "adv_camp.change_advertisement"
     raise_exception = True
 
@@ -75,6 +80,7 @@ class AdvCampUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
 
 
 class AdvCampDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """Класс реализует удаление объекта Рекламная кампания"""
     permission_required = "adv_camp.delete_advertisement"
     raise_exception = True
 

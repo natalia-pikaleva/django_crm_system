@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import (
     CreateView,
@@ -23,9 +25,11 @@ class ClientViewSet(ModelViewSet):
     serializer_class = ClientSerializer
 
     def get_template_names(self):
+        """Переопределение шаблонов для вывода списка объектов и деталей одного объекта"""
         if self.action == 'list':
             return ['clients/client_list.html']
-        elif self.action == 'retrieve':
+
+        if self.action == 'retrieve':
             return ['clients/client_detail.html']
         return super().get_template_names()
 
@@ -50,6 +54,7 @@ class ClientViewSet(ModelViewSet):
 
 
 class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """Класс реализует создание объекта Потенциальный клиент"""
     permission_required = "clients.add_client"
     raise_exception = True
 
@@ -59,9 +64,6 @@ class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def get_success_url(self):
         next_url = self.request.GET.get('next')
         if next_url:
-            # Добавляем client_id к URL next
-            from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
-
             url_parts = list(urlparse(next_url))
             query = parse_qs(url_parts[4])
             query['client_id'] = [str(self.object.pk)]
@@ -71,6 +73,7 @@ class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """Класс реализует изменение объекта Потенциальный клиент"""
     permission_required = "clients.change_client"
     raise_exception = True
 
@@ -86,6 +89,7 @@ class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """Класс реализует удаление объекта Потенциальный клиент"""
     permission_required = "clients.delete_client"
     raise_exception = True
 

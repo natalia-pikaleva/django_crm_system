@@ -1,9 +1,11 @@
+# pylint: disable=too-few-public-methods
 from django import forms
-from .models import Contract
 from bootstrap_datepicker_plus.widgets import DatePickerInput
+from .models import Contract
 
 
 class ContractForm(forms.ModelForm):
+    """Форма для создания или изменения объекта Контракт"""
     clear_file = forms.BooleanField(
         label='Удалить текущий файл?',
         required=False,
@@ -11,6 +13,7 @@ class ContractForm(forms.ModelForm):
     )
 
     class Meta:
+        """Мета класс для объекта Контракт"""
         model = Contract
         fields = (
             'title',
@@ -53,6 +56,8 @@ class ContractForm(forms.ModelForm):
         return instance
 
     def clean_file(self):
+        """Метод валидации формы, если файл загружен, возвращает файл,
+        если нет, возвращает файл из существующего объекта"""
         file = self.cleaned_data.get('file')
         if not file and self.instance and self.instance.pk:
 

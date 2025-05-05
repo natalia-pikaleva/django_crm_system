@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name
 from django.urls import path, include
 
 from rest_framework.routers import DefaultRouter
@@ -18,5 +19,4 @@ urlpatterns = [
     path('<int:pk>/update/', ClientUpdateView.as_view(), name="client_update"),
     path('<int:pk>/delete/', ClientDeleteView.as_view(), name="client_delete"),
     path('', include(router.urls)),
-
 ]

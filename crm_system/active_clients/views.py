@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
@@ -25,9 +26,11 @@ class ActiveClientViewSet(ModelViewSet):
     serializer_class = ActiveClientSerializer
 
     def get_template_names(self):
+        """Метод переопределяет шаблоны"""
         if self.action == 'list':
             return ['active_clients/activeclient_list.html']
-        elif self.action == 'retrieve':
+
+        if self.action == 'retrieve':
             return ['active_clients/activeclient_detail.html']
         return super().get_template_names()
 
@@ -52,6 +55,7 @@ class ActiveClientViewSet(ModelViewSet):
 
 
 class ActiveClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """Класс реализует просмотр списка активных клиентов или данных об одном клиенте"""
     permission_required = "active_clients.add_activeclient"
     raise_exception = True
 
@@ -67,7 +71,9 @@ class ActiveClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
 
         contract_ids = self.request.GET.get('contract_ids')
         if contract_ids:
-            initial['existing_contracts'] = [int(pk) for pk in contract_ids.split(',') if pk.isdigit()]
+            initial['existing_contracts'] = [
+                int(pk) for pk in contract_ids.split(',') if pk.isdigit()
+            ]
         return initial
 
     def form_valid(self, form):
@@ -81,6 +87,7 @@ class ActiveClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
 
 
 class ActiveClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """Класс реализует измение данных об активном клиенте"""
     permission_required = "active_clients.change_activeclient"
     raise_exception = True
 
@@ -96,7 +103,9 @@ class ActiveClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
 
         contract_ids = self.request.GET.get('contract_ids')
         if contract_ids:
-            initial['existing_contracts'] = [int(pk) for pk in contract_ids.split(',') if pk.isdigit()]
+            initial['existing_contracts'] = [
+                int(pk) for pk in contract_ids.split(',') if pk.isdigit()
+            ]
         return initial
 
     def form_valid(self, form):
@@ -116,6 +125,7 @@ class ActiveClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
 
 
 class ActiveClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """Класс реализует удаление активного клиента"""
     permission_required = "active_clients.delete_activeclient"
     raise_exception = True
 
