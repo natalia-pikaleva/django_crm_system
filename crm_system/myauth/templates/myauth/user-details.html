@@ -7,7 +7,7 @@
 {% block body %}
 <div class="card">
     <div class="card-body">
-        <h1 class="card-title">Пользователь {{ object.username }}</h1>
+        <h1 class="card-title">Пользователь {{ object.first_name }} {{ object.last_name }}</h1>
         {% for group in object.groups.all %}
         <p class="card-text">Роль: {{ group }}</p>
         {% endfor %}

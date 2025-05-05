@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
     CreateView,
@@ -15,13 +15,11 @@ from .serializers import ActiveClientSerializer
 from .forms import ActiveClientForm
 
 
-class ActiveClientViewSet(PermissionRequiredMixin, ModelViewSet):
+class ActiveClientViewSet(ModelViewSet):
     """
     Набор представлений для действий над ActiveClient.
     Полный CRUD для сущностей товара
     """
-    permission_required = "active_clients.view_activeclient"
-
     renderer_classes = [TemplateHTMLRenderer]
     queryset = ActiveClient.objects.select_related("client").all()
     serializer_class = ActiveClientSerializer
@@ -48,8 +46,9 @@ class ActiveClientViewSet(PermissionRequiredMixin, ModelViewSet):
         return Response(context)
 
 
-class ActiveClientCreateView(PermissionRequiredMixin, CreateView):
+class ActiveClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "active_clients.add_activeclient"
+    raise_exception = True
 
     model = ActiveClient
     form_class = ActiveClientForm
@@ -76,8 +75,9 @@ class ActiveClientCreateView(PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ActiveClientUpdateView(PermissionRequiredMixin, UpdateView):
+class ActiveClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "active_clients.change_activeclient"
+    raise_exception = True
 
     model = ActiveClient
     form_class = ActiveClientForm
@@ -110,8 +110,9 @@ class ActiveClientUpdateView(PermissionRequiredMixin, UpdateView):
         )
 
 
-class ActiveClientDeleteView(PermissionRequiredMixin, DeleteView):
+class ActiveClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "active_clients.delete_activeclient"
+    raise_exception = True
 
     model = ActiveClient
     success_url = reverse_lazy("active_clients:active_client-list")

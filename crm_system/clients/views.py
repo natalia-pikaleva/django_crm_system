@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import (
     CreateView,
     UpdateView,
@@ -13,12 +13,11 @@ from .models import Client
 from .serializers import ClientSerializer
 
 
-class ClientViewSet(PermissionRequiredMixin, ModelViewSet):
+class ClientViewSet(ModelViewSet):
     """
     Набор представлений для действий над Client.
     Полный CRUD для сущностей товара
     """
-    permission_required = "clients.view_client"
     renderer_classes = [TemplateHTMLRenderer]
     queryset = Client.objects.select_related("advertisement").all()
     serializer_class = ClientSerializer
@@ -45,8 +44,10 @@ class ClientViewSet(PermissionRequiredMixin, ModelViewSet):
         return Response(context)
 
 
-class ClientCreateView(PermissionRequiredMixin, CreateView):
+class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = "clients.add_client"
+    raise_exception = True
+
     model = Client
     fields = "fullName", "phone", "email", "advertisement"
 
@@ -63,8 +64,11 @@ class ClientCreateView(PermissionRequiredMixin, CreateView):
             return urlunparse(url_parts)
         return reverse_lazy('clients:client-list')
 
-class ClientUpdateView(PermissionRequiredMixin, UpdateView):
+
+class ClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = "clients.change_client"
+    raise_exception = True
+
     model = Client
     fields = "fullName", "phone", "email", "advertisement"
     template_name_suffix = "_update_form"
@@ -75,7 +79,10 @@ class ClientUpdateView(PermissionRequiredMixin, UpdateView):
             kwargs={"pk": self.object.pk},
         )
 
-class ClientDeleteView(PermissionRequiredMixin, DeleteView):
+
+class ClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = "clients.delete_client"
+    raise_exception = True
+
     model = Client
     success_url = reverse_lazy("clients:client-list")

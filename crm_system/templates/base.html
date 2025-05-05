@@ -97,13 +97,13 @@
 
 	        <form action="{% url 'myauth:logout' %}" method="post" class="btn btn-secondary">
 			    {% csrf_token %}
-			    <button type="submit" class="btn btn-secondary">Log out</button>
+			    <button type="submit" class="btn btn-secondary">Выйти</button>
 			</form>
 
 	    {% else %}
 	        <form action="{% url 'myauth:sign-in' %}" method="post" class="btn btn-secondary">
 			    {% csrf_token %}
-			    <button type="submit" class="btn btn-secondary">Login</button>
+			    <button type="submit" class="btn btn-secondary">Войти</button>
 			</form>
 
 	    {% endif %}
@@ -113,7 +113,7 @@
 </header>
 	<nav class="sidebar">
 	  <ul class="menu">
-		  <li><a href="#">Главная</a></li>
+		  <li><a href="{% url 'index' %}">Главная</a></li>
 		  {% if perms.services.view_service %}
 		    <li><a href="{% url 'services:service-list' %}">Услуги</a></li>
 		  {% endif %}
@@ -129,7 +129,9 @@
 		  {% if perms.active_clients.view_activeclient %}
 		    <li><a href="{% url 'active_clients:activeclient-list' %}">Активные клиенты</a></li>
 		  {% endif %}
+		  {% if user.is_authenticated %}
 		  <li><a href="{% url 'statistic:statistic' %}">Статистика</a></li>
+		  {% endif %}
 	  </ul>
 	</nav>
 <div class="main-container" style="margin-left: 220px; padding: 20px;">
