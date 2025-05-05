@@ -1,3 +1,5 @@
+# pylint: disable=too-few-public-methods
+# pylint: disable=no-member
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import (
     CreateView,
@@ -6,6 +8,7 @@ from django.views.generic import (
 from django.shortcuts import reverse
 from django.urls import reverse_lazy
 from rest_framework.viewsets import ModelViewSet
+
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 
@@ -23,9 +26,11 @@ class ServiceViewSet(ModelViewSet):
     serializer_class = ServiceSerializer
 
     def get_template_names(self):
+        """Метод переопределяет шаблоны для вывода списка услуг и деталей одной услуги"""
         if self.action == 'list':
             return ['services/service_list.html']
-        elif self.action == 'retrieve':
+
+        if self.action == 'retrieve':
             return ['services/service_detail.html']
         return super().get_template_names()
 
@@ -50,6 +55,7 @@ class ServiceViewSet(ModelViewSet):
 
 
 class ServiceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    """Класс реализует добавление объекта Услуга"""
     permission_required = "services.add_service"
     raise_exception = True
 
@@ -58,6 +64,7 @@ class ServiceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     success_url = reverse_lazy("services:service-list")
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    """Класс реализует изменение объекта Услуга"""
     permission_required = "services.change_service"
     raise_exception = True
 
@@ -72,6 +79,7 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
         )
 
 class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    """Класс реализует удаление объекта Услуга"""
     permission_required = "services.delete_service"
     raise_exception = True
 

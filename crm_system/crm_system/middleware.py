@@ -1,7 +1,10 @@
+# pylint: disable=too-few-public-methods
 from django.shortcuts import redirect
 from django.conf import settings
 
 class LoginRedirectMiddleware:
+    """Класс реализует middle функцию для перенаправления ползователей на страницу
+    авторизации при получении ошибки 401 или 403"""
     def __init__(self, get_response):
         self.get_response = get_response
 

@@ -5,12 +5,14 @@ from django.shortcuts import reverse
 
 
 class UserDetailView(DetailView):
+    """Класс реализует просмотр данных пользователя"""
     model = User
     template_name = "myauth/user-details.html"
     queryset = User.objects.all()
 
 
 class MyPasswordChangeView(PasswordChangeView):
+    """Класс реализует смену пароля"""
     template_name = 'myauth/change-password.html'
 
     def get_success_url(self):

@@ -1,5 +1,6 @@
+# pylint: disable=no-member
+# pylint: disable=too-few-public-methods
 from django import forms
-from django.forms import inlineformset_factory
 
 from clients.models import Client
 from contracts.models import Contract
@@ -7,6 +8,7 @@ from .models import ActiveClient
 
 
 class ActiveClientForm(forms.ModelForm):
+    """Форма для создания и редактирования активных клиентов"""
     new_client_fullName = forms.CharField(required=False, label="Имя нового клиента")
 
     existing_contracts = forms.ModelMultipleChoiceField(
@@ -17,6 +19,7 @@ class ActiveClientForm(forms.ModelForm):
     )
 
     class Meta:
+        """Мета класс для модели ActiveClient"""
         model = ActiveClient
         fields = ['client']
 
