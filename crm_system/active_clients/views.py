@@ -130,4 +130,4 @@ class ActiveClientDeleteView(LoginRequiredMixin, PermissionRequiredMixin, Delete
     raise_exception = True
 
     model = ActiveClient
-    success_url = reverse_lazy("active_clients:active_client-list")
+    success_url = reverse_lazy('active_clients:activeclient-list')
