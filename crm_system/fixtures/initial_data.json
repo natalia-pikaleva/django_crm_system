@@ -1,0 +1,1111 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$rkNkSNTX5p5dEddsZ4j5i8$rwbiEiEBhsfTd1HqZTKn1H4nwrsMyiTOGAm1UNBarGI=",
+        "last_login": "2025-05-05T15:07:56.399Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "Лев",
+        "last_name": "Толстой",
+        "email": "admin@email.ru",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2025-05-01T19:33:57Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$kBbCCnwww3A3Ni68TufBFg$NUIrVyamk7GP590fXO3f4aV/6ncPO7WummRAoYudojg=",
+        "last_login": "2025-05-05T15:07:30.497Z",
+        "is_superuser": false,
+        "username": "ivanov",
+        "first_name": "Иван",
+        "last_name": "Иванов",
+        "email": "ivanov@email.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-05-04T10:38:31Z",
+        "groups": [
+            1
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$VBZm1Ung4BOr7dlZh3pfTS$N/l/vlY1Xtqs/ydP8EvIXB80xY2/hnM8j3VyuAyyLEw=",
+        "last_login": "2025-05-05T07:40:05.939Z",
+        "is_superuser": false,
+        "username": "petrov",
+        "first_name": "Петр",
+        "last_name": "Петров",
+        "email": "petrov@email.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-05-04T10:39:25Z",
+        "groups": [
+            2
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$1000000$imCd2tb9eJQajrfpuGJN2S$/Q6UxNGrT8Bzk+7+jHzbJ+SvBiYd8pSMrcRQONFOwuM=",
+        "last_login": "2025-05-04T15:45:13.744Z",
+        "is_superuser": false,
+        "username": "sidorov",
+        "first_name": "Антон",
+        "last_name": "Сидоров",
+        "email": "sidorov@email.ru",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2025-05-04T11:10:34Z",
+        "groups": [
+            3
+        ],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 1,
+    "fields": {
+        "name": "Operator",
+        "permissions": [
+            33,
+            34,
+            35,
+            36
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 2,
+    "fields": {
+        "name": "Marketing specialist",
+        "permissions": [
+            29,
+            30,
+            31,
+            32,
+            25,
+            26,
+            27,
+            28
+        ]
+    }
+},
+{
+    "model": "auth.group",
+    "pk": 3,
+    "fields": {
+        "name": "Manager",
+        "permissions": [
+            45,
+            46,
+            47,
+            48,
+            36,
+            37,
+            38,
+            39,
+            40
+        ]
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+        "name": "Can add log entry",
+        "content_type": 1,
+        "codename": "add_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+        "name": "Can change log entry",
+        "content_type": 1,
+        "codename": "change_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+        "name": "Can delete log entry",
+        "content_type": 1,
+        "codename": "delete_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+        "name": "Can view log entry",
+        "content_type": 1,
+        "codename": "view_logentry"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+        "name": "Can add permission",
+        "content_type": 2,
+        "codename": "add_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+        "name": "Can change permission",
+        "content_type": 2,
+        "codename": "change_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+        "name": "Can delete permission",
+        "content_type": 2,
+        "codename": "delete_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+        "name": "Can view permission",
+        "content_type": 2,
+        "codename": "view_permission"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+        "name": "Can add group",
+        "content_type": 3,
+        "codename": "add_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+        "name": "Can change group",
+        "content_type": 3,
+        "codename": "change_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+        "name": "Can delete group",
+        "content_type": 3,
+        "codename": "delete_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+        "name": "Can view group",
+        "content_type": 3,
+        "codename": "view_group"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+        "name": "Can add user",
+        "content_type": 4,
+        "codename": "add_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+        "name": "Can change user",
+        "content_type": 4,
+        "codename": "change_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+        "name": "Can delete user",
+        "content_type": 4,
+        "codename": "delete_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+        "name": "Can view user",
+        "content_type": 4,
+        "codename": "view_user"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+        "name": "Can add content type",
+        "content_type": 5,
+        "codename": "add_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+        "name": "Can change content type",
+        "content_type": 5,
+        "codename": "change_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+        "name": "Can delete content type",
+        "content_type": 5,
+        "codename": "delete_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+        "name": "Can view content type",
+        "content_type": 5,
+        "codename": "view_contenttype"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+        "name": "Can add session",
+        "content_type": 6,
+        "codename": "add_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+        "name": "Can change session",
+        "content_type": 6,
+        "codename": "change_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+        "name": "Can delete session",
+        "content_type": 6,
+        "codename": "delete_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+        "name": "Can view session",
+        "content_type": 6,
+        "codename": "view_session"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+        "name": "Can add service",
+        "content_type": 7,
+        "codename": "add_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+        "name": "Can change service",
+        "content_type": 7,
+        "codename": "change_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+        "name": "Can delete service",
+        "content_type": 7,
+        "codename": "delete_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+        "name": "Can view service",
+        "content_type": 7,
+        "codename": "view_service"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+        "name": "Can add Advertisement campaign",
+        "content_type": 8,
+        "codename": "add_advertisement"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+        "name": "Can change Advertisement campaign",
+        "content_type": 8,
+        "codename": "change_advertisement"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+        "name": "Can delete Advertisement campaign",
+        "content_type": 8,
+        "codename": "delete_advertisement"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+        "name": "Can view Advertisement campaign",
+        "content_type": 8,
+        "codename": "view_advertisement"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+        "name": "Can add Client",
+        "content_type": 9,
+        "codename": "add_client"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+        "name": "Can change Client",
+        "content_type": 9,
+        "codename": "change_client"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+        "name": "Can delete Client",
+        "content_type": 9,
+        "codename": "delete_client"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+        "name": "Can view Client",
+        "content_type": 9,
+        "codename": "view_client"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add Contract",
+        "content_type": 10,
+        "codename": "add_contract"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change Contract",
+        "content_type": 10,
+        "codename": "change_contract"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete Contract",
+        "content_type": 10,
+        "codename": "delete_contract"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+        "name": "Can view Contract",
+        "content_type": 10,
+        "codename": "view_contract"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+        "name": "Can add Customer",
+        "content_type": 11,
+        "codename": "add_customer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+        "name": "Can change Customer",
+        "content_type": 11,
+        "codename": "change_customer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+        "name": "Can delete Customer",
+        "content_type": 11,
+        "codename": "delete_customer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+        "name": "Can view Customer",
+        "content_type": 11,
+        "codename": "view_customer"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+        "name": "Can add Active client",
+        "content_type": 12,
+        "codename": "add_activeclient"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+        "name": "Can change Active client",
+        "content_type": 12,
+        "codename": "change_activeclient"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+        "name": "Can delete Active client",
+        "content_type": 12,
+        "codename": "delete_activeclient"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+        "name": "Can view Active client",
+        "content_type": 12,
+        "codename": "view_activeclient"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+        "app_label": "admin",
+        "model": "logentry"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+        "app_label": "auth",
+        "model": "permission"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+        "app_label": "auth",
+        "model": "group"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+        "app_label": "auth",
+        "model": "user"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+        "app_label": "contenttypes",
+        "model": "contenttype"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+        "app_label": "sessions",
+        "model": "session"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+        "app_label": "services",
+        "model": "service"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+        "app_label": "adv_camp",
+        "model": "advertisement"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+        "app_label": "clients",
+        "model": "client"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+        "app_label": "contracts",
+        "model": "contract"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+        "app_label": "customers",
+        "model": "customer"
+    }
+},
+{
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+        "app_label": "active_clients",
+        "model": "activeclient"
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 1,
+    "fields": {
+        "client": 1
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 2,
+    "fields": {
+        "client": 16
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 3,
+    "fields": {
+        "client": 10
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 4,
+    "fields": {
+        "client": 4
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 5,
+    "fields": {
+        "client": 12
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 6,
+    "fields": {
+        "client": 3
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 7,
+    "fields": {
+        "client": 11
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 8,
+    "fields": {
+        "client": 7
+    }
+},
+{
+    "model": "active_clients.activeclient",
+    "pk": 9,
+    "fields": {
+        "client": 14
+    }
+},
+{
+    "model": "adv_camp.advertisement",
+    "pk": 1,
+    "fields": {
+        "title": "Скоро лето",
+        "promotion_channel": "VK",
+        "budget": "150000.00",
+        "service": 1
+    }
+},
+{
+    "model": "adv_camp.advertisement",
+    "pk": 3,
+    "fields": {
+        "title": "Не имей 100 друзей, а имей 100 руб!",
+        "promotion_channel": "Реклама в транспорте",
+        "budget": "20000.00",
+        "service": 4
+    }
+},
+{
+    "model": "adv_camp.advertisement",
+    "pk": 4,
+    "fields": {
+        "title": "Подключайся",
+        "promotion_channel": "VK",
+        "budget": "10000.00",
+        "service": 3
+    }
+},
+{
+    "model": "adv_camp.advertisement",
+    "pk": 5,
+    "fields": {
+        "title": "Приведи друга и получи скидку!",
+        "promotion_channel": "Листовки",
+        "budget": "60000.00",
+        "service": 5
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 1,
+    "fields": {
+        "fullName": "Пикалева Наталья Анатольевна",
+        "phone": "79211234545",
+        "email": "deva032006@yandex.ru",
+        "advertisement": 1
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 3,
+    "fields": {
+        "fullName": "Мельников Егор Василевич",
+        "phone": "+712345678",
+        "email": "email@email.ru",
+        "advertisement": 1
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 4,
+    "fields": {
+        "fullName": "Иванов Иван Иванович",
+        "phone": "+791122222222",
+        "email": "ivaniv@email.ru",
+        "advertisement": 1
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 5,
+    "fields": {
+        "fullName": "Петров Петр Петрович",
+        "phone": "+71111111111",
+        "email": "petrov@email.ru",
+        "advertisement": 4
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 7,
+    "fields": {
+        "fullName": "Никонова Анна",
+        "phone": "555555555555",
+        "email": "nikonova@email.ru",
+        "advertisement": 3
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 8,
+    "fields": {
+        "fullName": "Сидоров Сидор Сидорович",
+        "phone": "555555555",
+        "email": "sidor@email.ru",
+        "advertisement": 3
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 10,
+    "fields": {
+        "fullName": "Маркитантова Екатерина",
+        "phone": "26564646464",
+        "email": "markitantova@email.ru",
+        "advertisement": 4
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 11,
+    "fields": {
+        "fullName": "Мелешина Анна",
+        "phone": "6666666666666",
+        "email": "meleshina@email.ru",
+        "advertisement": 4
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 12,
+    "fields": {
+        "fullName": "Ивкина Любовь",
+        "phone": "666666666666",
+        "email": "ivkina@email.ru",
+        "advertisement": 1
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 14,
+    "fields": {
+        "fullName": "Пикалев Сергей",
+        "phone": "666666666666",
+        "email": "pikalev@email.ru",
+        "advertisement": 1
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 16,
+    "fields": {
+        "fullName": "Агалец Федор",
+        "phone": "6556664",
+        "email": "agalec@email.ru",
+        "advertisement": 3
+    }
+},
+{
+    "model": "clients.client",
+    "pk": 17,
+    "fields": {
+        "fullName": "Михайлов Константин Иванович",
+        "phone": "+7123456789",
+        "email": "michailov@email.ru",
+        "advertisement": 1
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 1,
+    "fields": {
+        "title": "Контракт",
+        "created_at": "2025-05-02T00:00:00Z",
+        "start_date": "2025-05-02T00:00:00Z",
+        "end_date": "2025-10-23T00:00:00Z",
+        "amount": "50000.00",
+        "service": 3,
+        "file": "contracts/documents/file_to_update.txt",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 2,
+    "fields": {
+        "title": "Контракт 51",
+        "created_at": "2025-05-06T00:00:00Z",
+        "start_date": "2025-06-01T00:00:00Z",
+        "end_date": "2025-09-30T00:00:00Z",
+        "amount": "15000.00",
+        "service": 1,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 3,
+    "fields": {
+        "title": "Еще контракт",
+        "created_at": "2025-04-15T00:00:00Z",
+        "start_date": "2025-05-04T00:00:00Z",
+        "end_date": "2025-05-22T00:00:00Z",
+        "amount": "15000.00",
+        "service": 1,
+        "file": "contracts/documents/new_file.txt",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 4,
+    "fields": {
+        "title": "Контракт 111",
+        "created_at": "2025-05-04T00:00:00Z",
+        "start_date": "2025-06-01T00:00:00Z",
+        "end_date": "2025-06-30T00:00:00Z",
+        "amount": "20000.00",
+        "service": 3,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 5,
+    "fields": {
+        "title": "Еще контракт",
+        "created_at": "2025-05-05T00:00:00Z",
+        "start_date": "2025-05-14T00:00:00Z",
+        "end_date": "2025-05-27T00:00:00Z",
+        "amount": "30000.00",
+        "service": 3,
+        "file": "",
+        "client": 7
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 6,
+    "fields": {
+        "title": "Контракт 666",
+        "created_at": "2025-05-14T00:00:00Z",
+        "start_date": "2025-05-14T00:00:00Z",
+        "end_date": "2025-12-31T00:00:00Z",
+        "amount": "50000.00",
+        "service": 3,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 7,
+    "fields": {
+        "title": "Контракт 12",
+        "created_at": "2025-05-12T00:00:00Z",
+        "start_date": "2025-05-05T00:00:00Z",
+        "end_date": "2025-06-19T00:00:00Z",
+        "amount": "40000.00",
+        "service": 3,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 8,
+    "fields": {
+        "title": "Контракт 4",
+        "created_at": "2025-05-14T00:00:00Z",
+        "start_date": "2025-05-14T00:00:00Z",
+        "end_date": "2025-09-30T00:00:00Z",
+        "amount": "15000.00",
+        "service": 1,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 9,
+    "fields": {
+        "title": "Контрак 5",
+        "created_at": "2025-05-05T00:00:00Z",
+        "start_date": "2025-05-05T00:00:00Z",
+        "end_date": "2025-12-31T00:00:00Z",
+        "amount": "50000.00",
+        "service": 1,
+        "file": "",
+        "client": 8
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 10,
+    "fields": {
+        "title": "Контракт 3",
+        "created_at": "2025-05-05T00:00:00Z",
+        "start_date": "2025-05-04T00:00:00Z",
+        "end_date": "2025-07-03T00:00:00Z",
+        "amount": "15000.00",
+        "service": 1,
+        "file": "",
+        "client": 5
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 11,
+    "fields": {
+        "title": "Контракт 33",
+        "created_at": "2025-04-15T00:00:00Z",
+        "start_date": "2025-05-15T00:00:00Z",
+        "end_date": "2025-09-30T00:00:00Z",
+        "amount": "10000.00",
+        "service": 1,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 12,
+    "fields": {
+        "title": "Контракт 44",
+        "created_at": "2025-05-05T00:00:00Z",
+        "start_date": "2025-05-05T00:00:00Z",
+        "end_date": "2025-08-31T00:00:00Z",
+        "amount": "10000.00",
+        "service": 3,
+        "file": "",
+        "client": null
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 13,
+    "fields": {
+        "title": "Контракт",
+        "created_at": "2025-05-14T00:00:00Z",
+        "start_date": "2025-05-20T00:00:00Z",
+        "end_date": "2025-07-24T00:00:00Z",
+        "amount": "33333.00",
+        "service": 1,
+        "file": "",
+        "client": 9
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 14,
+    "fields": {
+        "title": "Контракт 1",
+        "created_at": "2025-05-14T00:00:00Z",
+        "start_date": "2025-05-18T00:00:00Z",
+        "end_date": "2025-05-31T00:00:00Z",
+        "amount": "15000.00",
+        "service": null,
+        "file": "",
+        "client": 6
+    }
+},
+{
+    "model": "services.service",
+    "pk": 1,
+    "fields": {
+        "title": "Контекстная реклама",
+        "description": "Контекстная реклама – это платные объявления, которые показываются в поисковых системах: например, в Яндексе и Google. Объявления отображаются в результатах поиска, когда пользователь вводит запрос, связанный с вашим товаром или услугой. Эффективный инструмент для привлечения целевого трафика и увеличения продаж",
+        "price": "10000.00"
+    }
+},
+{
+    "model": "services.service",
+    "pk": 3,
+    "fields": {
+        "title": "SMM услуги",
+        "description": "SMM (Social Media Marketing, он же маркетинг в социальных сетях) – это продвижение бизнеса в социальных сетях: ВКонтакте, Одноклассники, Telegram. Основная задача – привлечь внимание аудитории, увеличить охваты и вовлеченность, а также стимулировать продажи. Это не только реклама, но и возможность построить долгосрочные отношения с аудиторией",
+        "price": "25000.00"
+    }
+},
+{
+    "model": "services.service",
+    "pk": 4,
+    "fields": {
+        "title": "Реклама на транспорте",
+        "description": "Описание услуги",
+        "price": "20000.00"
+    }
+},
+{
+    "model": "services.service",
+    "pk": 5,
+    "fields": {
+        "title": "Распространение листовок",
+        "description": "Описание услуги",
+        "price": "50000.00"
+    }
+}
+]

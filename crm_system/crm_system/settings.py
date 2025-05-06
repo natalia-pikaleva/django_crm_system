@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_bootstrap5',
     'bootstrap_datepicker_plus',
+    'django_dump_load_utf8',
 
     'services.apps.ServicesConfig',
     'adv_camp.apps.AdvCampConfig',
@@ -93,7 +94,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
