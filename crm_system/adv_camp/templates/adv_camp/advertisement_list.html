@@ -26,7 +26,7 @@
         <div class="list-group-item d-flex justify-content-between align-items-center">
             <div>
                 <a href="{% url 'advertisement:advertisement-detail' pk=adv_camp.pk %}">
-                    <h5 class="mb-1">Рекламная кампания #{{ adv_camp.pk }} {{ adv_camp.title }}</h5>
+                    <h5 class="mb-1">{{ adv_camp.title }}</h5>
                 </a>
             </div>
             <a href="{% url 'advertisement:advertisement_delete' pk=adv_camp.pk %}" class="btn btn-sm btn-danger">

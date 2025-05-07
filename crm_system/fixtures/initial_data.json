@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$1000000$rkNkSNTX5p5dEddsZ4j5i8$rwbiEiEBhsfTd1HqZTKn1H4nwrsMyiTOGAm1UNBarGI=",
-        "last_login": "2025-05-05T15:07:56.399Z",
+        "last_login": "2025-05-07T07:23:28.654Z",
         "is_superuser": true,
         "username": "admin",
         "first_name": "Лев",
@@ -853,7 +853,7 @@
         "fullName": "Пикалев Сергей",
         "phone": "666666666666",
         "email": "pikalev@email.ru",
-        "advertisement": 1
+        "advertisement": 5
     }
 },
 {
@@ -880,21 +880,21 @@
     "model": "contracts.contract",
     "pk": 1,
     "fields": {
-        "title": "Контракт",
+        "title": "Контракт на SMM услуги",
         "created_at": "2025-05-02T00:00:00Z",
         "start_date": "2025-05-02T00:00:00Z",
         "end_date": "2025-10-23T00:00:00Z",
         "amount": "50000.00",
         "service": 3,
         "file": "contracts/documents/file_to_update.txt",
-        "client": null
+        "client": 5
     }
 },
 {
     "model": "contracts.contract",
     "pk": 2,
     "fields": {
-        "title": "Контракт 51",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-05-06T00:00:00Z",
         "start_date": "2025-06-01T00:00:00Z",
         "end_date": "2025-09-30T00:00:00Z",
@@ -908,39 +908,53 @@
     "model": "contracts.contract",
     "pk": 3,
     "fields": {
-        "title": "Еще контракт",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-04-15T00:00:00Z",
         "start_date": "2025-05-04T00:00:00Z",
         "end_date": "2025-05-22T00:00:00Z",
         "amount": "15000.00",
         "service": 1,
         "file": "contracts/documents/new_file.txt",
-        "client": null
+        "client": 1
     }
 },
 {
     "model": "contracts.contract",
     "pk": 4,
     "fields": {
-        "title": "Контракт 111",
+        "title": "Контракт на SMM услуги",
         "created_at": "2025-05-04T00:00:00Z",
         "start_date": "2025-06-01T00:00:00Z",
         "end_date": "2025-06-30T00:00:00Z",
         "amount": "20000.00",
         "service": 3,
         "file": "",
-        "client": null
+        "client": 3
     }
 },
 {
     "model": "contracts.contract",
     "pk": 5,
     "fields": {
-        "title": "Еще контракт",
+        "title": "Контракт SMM услуги",
         "created_at": "2025-05-05T00:00:00Z",
         "start_date": "2025-05-14T00:00:00Z",
         "end_date": "2025-05-27T00:00:00Z",
         "amount": "30000.00",
+        "service": 3,
+        "file": "",
+        "client": 2
+    }
+},
+{
+    "model": "contracts.contract",
+    "pk": 6,
+    "fields": {
+        "title": "Контракт на SMM услуги",
+        "created_at": "2025-05-14T00:00:00Z",
+        "start_date": "2025-05-14T00:00:00Z",
+        "end_date": "2025-12-31T00:00:00Z",
+        "amount": "50000.00",
         "service": 3,
         "file": "",
         "client": 7
@@ -948,51 +962,37 @@
 },
 {
     "model": "contracts.contract",
-    "pk": 6,
-    "fields": {
-        "title": "Контракт 666",
-        "created_at": "2025-05-14T00:00:00Z",
-        "start_date": "2025-05-14T00:00:00Z",
-        "end_date": "2025-12-31T00:00:00Z",
-        "amount": "50000.00",
-        "service": 3,
-        "file": "",
-        "client": null
-    }
-},
-{
-    "model": "contracts.contract",
     "pk": 7,
     "fields": {
-        "title": "Контракт 12",
+        "title": "Контракт на SMM услуги",
         "created_at": "2025-05-12T00:00:00Z",
         "start_date": "2025-05-05T00:00:00Z",
         "end_date": "2025-06-19T00:00:00Z",
         "amount": "40000.00",
         "service": 3,
         "file": "",
-        "client": null
+        "client": 3
     }
 },
 {
     "model": "contracts.contract",
     "pk": 8,
     "fields": {
-        "title": "Контракт 4",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-05-14T00:00:00Z",
         "start_date": "2025-05-14T00:00:00Z",
         "end_date": "2025-09-30T00:00:00Z",
         "amount": "15000.00",
         "service": 1,
         "file": "",
-        "client": null
+        "client": 6
     }
 },
 {
     "model": "contracts.contract",
     "pk": 9,
     "fields": {
-        "title": "Контрак 5",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-05-05T00:00:00Z",
         "start_date": "2025-05-05T00:00:00Z",
         "end_date": "2025-12-31T00:00:00Z",
@@ -1006,21 +1006,21 @@
     "model": "contracts.contract",
     "pk": 10,
     "fields": {
-        "title": "Контракт 3",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-05-05T00:00:00Z",
         "start_date": "2025-05-04T00:00:00Z",
         "end_date": "2025-07-03T00:00:00Z",
         "amount": "15000.00",
         "service": 1,
         "file": "",
-        "client": 5
+        "client": 1
     }
 },
 {
     "model": "contracts.contract",
     "pk": 11,
     "fields": {
-        "title": "Контракт 33",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-04-15T00:00:00Z",
         "start_date": "2025-05-15T00:00:00Z",
         "end_date": "2025-09-30T00:00:00Z",
@@ -1034,21 +1034,21 @@
     "model": "contracts.contract",
     "pk": 12,
     "fields": {
-        "title": "Контракт 44",
+        "title": "Контракт на SMM услуги",
         "created_at": "2025-05-05T00:00:00Z",
         "start_date": "2025-05-05T00:00:00Z",
         "end_date": "2025-08-31T00:00:00Z",
         "amount": "10000.00",
         "service": 3,
         "file": "",
-        "client": null
+        "client": 4
     }
 },
 {
     "model": "contracts.contract",
     "pk": 13,
     "fields": {
-        "title": "Контракт",
+        "title": "Контракт на контекстную рекламу",
         "created_at": "2025-05-14T00:00:00Z",
         "start_date": "2025-05-20T00:00:00Z",
         "end_date": "2025-07-24T00:00:00Z",
@@ -1062,14 +1062,14 @@
     "model": "contracts.contract",
     "pk": 14,
     "fields": {
-        "title": "Контракт 1",
+        "title": "Контракт на распространение листовок",
         "created_at": "2025-05-14T00:00:00Z",
         "start_date": "2025-05-18T00:00:00Z",
         "end_date": "2025-05-31T00:00:00Z",
         "amount": "15000.00",
-        "service": null,
+        "service": 5,
         "file": "",
-        "client": 6
+        "client": null
     }
 },
 {

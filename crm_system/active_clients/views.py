@@ -79,10 +79,12 @@ class ActiveClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, Create
     def form_valid(self, form):
         self.object = form.save()
 
-        # Привязываем выбранные контракты
         contracts = form.cleaned_data.get('existing_contracts')
         if contracts:
             contracts.update(client=self.object)
+            for contract in contracts:
+                contract.save()
+
         return super().form_valid(form)
 
 
@@ -111,10 +113,12 @@ class ActiveClientUpdateView(LoginRequiredMixin, PermissionRequiredMixin, Update
     def form_valid(self, form):
         self.object = form.save()
 
-        # Привязываем выбранные контракты
         contracts = form.cleaned_data.get('existing_contracts')
         if contracts:
             contracts.update(client=self.object)
+            for contract in contracts:
+                contract.save()
+
         return super().form_valid(form)
 
     def get_success_url(self):

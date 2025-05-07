@@ -19,4 +19,4 @@ class Service(models.Model):
     price = models.DecimalField(default=0, max_digits=8, decimal_places=2)
 
     def __str__(self) -> str:
-        return f"Услуга #{self.pk} {self.title!r}"
+        return f"{self.title}"

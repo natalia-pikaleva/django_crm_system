@@ -26,8 +26,8 @@
 </div>
 
 <br>
-<div class="card">
-  <h5>Число клиентов, перешедших из потенциальных в активных</h5>
+<div class="card" style="max-width: 500px;">
+  <h5>Число клиентов, перешедших из потенциальных в активные</h5>
   <table class="table table-success">
       <thead>
         <tr>
@@ -46,7 +46,6 @@
 <br>
 <div class="card">
     <h5>Информация по доходам и расходам:</h5>
-
     <table class="table table-success table-striped">
       <thead>
         <tr>
@@ -58,8 +57,7 @@
         </tr>
       </thead>
       <tbody>
-        {% for adv_camp in info_budget %}
-        <tr>
+        {% for adv_camp in info_budget %}<tr>
 
           <td>{{ adv_camp.title }}</td>
           <td>{{ adv_camp.budget }}</td>
