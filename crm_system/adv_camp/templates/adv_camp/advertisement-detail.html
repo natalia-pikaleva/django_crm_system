@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Рекламная кампания #{{ object.pk }}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Рекламная кампания #{{ object.pk }} {{ object.title }}</h1>
+        <p class="card-text">Канал продвижения: {{ object.promotion_channel }}</p>
+        <p class="card-text">Бюджет: {{ object.budget }} руб.</p>
+        <p class="card-text">Услуга: {{ object.service.title }}</p>
+</div>
+<br>
+<div>
+    <a href="{% url 'advertisement:advertisement_update' pk=object.pk %}"  class="btn btn-secondary">Изменить рекламную кампанию</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'advertisement:advertisement_delete' pk=object.pk %}" class="btn btn-secondary">Удалить рекламную кампанию</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'advertisement:advertisement-list' %}" class="btn btn-secondary">Вернуться к списку рекламных кампаний</a>
+</div>
+{% endblock %}

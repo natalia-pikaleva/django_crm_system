@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+
+{% block title %}
+Изменение контракта
+{% endblock %}
+
+{% block body %}
+<h1>Изменение контракта</h1>
+<div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+    {{ form.media }}
+    {% bootstrap_field form.title %}
+    {% bootstrap_field form.created_at %}
+    {% bootstrap_field form.start_date %}
+    {% bootstrap_field form.end_date %}
+    {% bootstrap_field form.amount %}
+    {% bootstrap_field form.service %}
+
+    <div class="mb-3">
+        {{ form.file.label_tag }}
+        {{ form.file }}
+        {{ form.file.errors }}
+    </div>
+    <div class="mb-3 form-check">
+        {{ form.clear_file }}
+        <label class="form-check-label" for="id_clear_file">Удалить текущий файл?</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+</div>
+<br>
+<div>
+    <a href="{% url 'contracts:contract-detail' pk=object.pk %}" class="btn btn-secondary">Вернуться к контракту</a>
+</div>
+{% endblock %}

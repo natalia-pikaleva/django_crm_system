@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Создание активного клиента{% endblock %}
+
+{% block body %}
+    <h1>Создание активного клиента</h1>
+
+<div class="mb-3">
+<form method="post">
+    {% csrf_token %}
+    <p>
+        {{ form.client.label_tag }}
+        {{ form.client }}
+        <a href="{% url 'clients:client_create' %}?next={{ request.get_full_path|urlencode }}" class="btn btn-secondary">Создать нового клиента</a>
+    </p>
+    <p>
+        {{ form.existing_contracts.label_tag }}
+        {{ form.existing_contracts }}
+        <a href="{% url 'contracts:contract_create' %}?next={{ request.get_full_path|urlencode }}" class="btn btn-secondary">Создать новый контракт</a>
+    </p>
+
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+</div>
+<div class="mb-3">
+    <a href="{% url 'active_clients:activeclient-list' %}" class="btn btn-secondary">Вернуться к списку активных клиентов</a>
+</div>
+{% endblock %}

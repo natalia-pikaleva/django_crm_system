@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Статистика
+{% endblock %}
+
+{% block body %}
+<h1>Статистика</h1>
+<div class="card">
+    <h5>Число клиентов, привлечённых рекламной кампанией</h5>
+      <table class="table table-success table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Название рекламной кампании</th>
+            <th scope="col">Количество привлеченных клиентов</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in info_clients %}
+            <tr>
+              <td>{{ record.advertisement__title }}</td>
+              <td>{{ record.clients_count }}</td>
+            </tr>
+          {% endfor %}
+      </table>
+</div>
+
+<br>
+<div class="card" style="max-width: 500px;">
+  <h5>Число клиентов, перешедших из потенциальных в активные</h5>
+  <table class="table table-success">
+      <thead>
+        <tr>
+          <td scope="col">Всего потенциальных клиентов</td>
+          <td scope="col">{{ info_active_clients.count_clients }}</td>
+        </tr>
+      </thead>
+      <tbody>
+          <tr>
+            <td scope="row">Количество активных клиентов</td>
+            <td>{{ info_active_clients.count_active_clients }}</td>
+          </tr>
+      </table>
+</div>
+
+<br>
+<div class="card">
+    <h5>Информация по доходам и расходам:</h5>
+    <table class="table table-success table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Название рекламной кампании</th>
+          <th scope="col">Расходы</th>
+          <th scope="col">Количество потенциальных клиентов</th>
+          <th scope="col">Количество активных клиентов</th>
+          <th scope="col">Общая сумма доходов по контрактам</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for adv_camp in info_budget %}<tr>
+
+          <td>{{ adv_camp.title }}</td>
+          <td>{{ adv_camp.budget }}</td>
+          <td>{{ adv_camp.count_clients }}</td>
+          <td>{{ adv_camp.count_active_clients_with_contracts }}</td>
+          <td>{{ adv_camp.total_amount }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+{% endblock %}

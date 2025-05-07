@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+CRM-система
+{% endblock %}
+
+{% block body %}
+	<h1>Добро пожаловать в CRM-систему
+		<br>
+		Название системы</h1>
+
+<br>
+<div class="card">
+	<div class="card-body">
+	<p><h2>Управляйте клиентами, контрактами и аналитикой в одном месте</h2></p>
+
+	<ul>
+		<li>Управление потенциальными и активными клиентами</li>
+		<li>Создание и отслеживание контрактов</li>
+		<li>Аналитика и отчёты по продажам</li>
+		<li>Распределение функционала между разных ролями</li>
+		<li>Интеграция с почтой и другими сервисами</li>
+	</ul>
+	</div>
+</div>
+<br>
+<div class="card">
+	<br>
+	<div class="card-body">
+	{% if user.is_authenticated %}
+	  <p>Здравствуйте, {{ user.get_full_name }}!</p>
+	  <a href="{% url 'myauth:profile' pk=user.pk %}" class="btn btn-secondary">Перейти в личный кабинет</a>
+	{% else %}
+	  <p>Пожалуйста, войдите в систему</p>
+      <a href="{% url 'myauth:sign-in' %}" class="btn btn-secondary">Авторизация</a>
+
+	{% endif %}
+	  </p>
+	</div>
+
+</div>
+{% endblock %}

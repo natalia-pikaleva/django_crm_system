@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+Активный клиент #{{ object.pk }} {{ object.client.fullName }}
+{% endblock %}
+
+{% block body %}
+<div class="card">
+    <div class="card-body">
+        <h1 class="card-title">Активный клиент #{{ object.pk }}
+            <br>
+            {{ object.client.fullName }}</h1>
+        <div class="list-group">
+            {% for contract in object.contracts.all %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <a href="{% url 'contracts:contract-detail' pk=contract.pk %}">
+                            <h5 class="mb-1">Контракт #{{ contract.pk }} {{ contract.title }}</h5>
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="list-group-item">Контрактов еще нет</div>
+            {% endfor %}
+        </div>
+</div>
+<br>
+<div>
+    <a href="{% url 'active_clients:active_client_update' pk=object.pk %}"  class="btn btn-secondary">Изменить информацию об активном клиенте</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'active_clients:active_client_delete' pk=object.pk %}" class="btn btn-secondary">Удалить активного клиента</a>
+</div>
+<br>
+<div>
+    <a href="{% url 'active_clients:activeclient-list' %}" class="btn btn-secondary">Вернуться к списку активных клиентов</a>
+</div>
+{% endblock %}
