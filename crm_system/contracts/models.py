@@ -32,4 +32,4 @@ class Contract(models.Model):
                                blank=True)
 
     def __str__(self) -> str:
-        return f"Контракт #{self.pk} от {self.created_at}"
+        return f"Контракт {self.title} #{self.pk} от {self.created_at}"

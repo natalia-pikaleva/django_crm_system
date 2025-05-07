@@ -24,4 +24,4 @@ class Client(models.Model):
                                       blank=True)
 
     def __str__(self) -> str:
-        return f"Клиент {self.fullName}"
+        return f"{self.fullName} - {self.advertisement}"

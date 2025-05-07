@@ -26,7 +26,7 @@
         <div class="list-group-item d-flex justify-content-between align-items-center">
             <div>
                 <a href="{% url 'contracts:contract-detail' pk=contract.pk %}">
-                    <h5 class="mb-1">Контракт #{{ contract.pk }} {{ contract.title }}</h5>
+                    <h5 class="mb-1">{{ contract.title }} #{{ contract.pk }} от {{ contract.created_at|date:"d.m.Y" }}</h5>
                 </a>
             </div>
             <a href="{% url 'contracts:contract_delete' pk=contract.pk %}" class="btn btn-sm btn-danger">

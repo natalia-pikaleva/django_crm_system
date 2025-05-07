@@ -24,4 +24,4 @@ class Advertisement(models.Model):
                                 blank=True)
 
     def __str__(self) -> str:
-        return f"Рекламная кампания #{self.pk} {self.title!r}"
+        return f"{self.title}"

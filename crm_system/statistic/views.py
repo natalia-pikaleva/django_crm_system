@@ -27,6 +27,8 @@ def statistic_view(request):
             'clients__active_client__contracts__client',
             distinct=True)).annotate(
         total_amount=Sum('clients__active_client__contracts__amount')).all()
+
+
     context = {
         "info_clients": info_clients,
         "info_active_clients": info_active_clients,

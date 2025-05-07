@@ -10,26 +10,28 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 import os
+from os import getenv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-zd&3n#$&*@w97xf6)lf&cx4ak9^57#_eg&pdhesi1o+fc$l&(e'
+SECRET_KEY = getenv(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-zd&3n#$&*@w97xf6)lf&cx4ak9^57#_eg&pdhesi1o+fc$l&(e",
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = getenv("DJANGO_DEBUG", "0") == "1"
 
 ALLOWED_HOSTS = [
-    "0.0.0.0",
-    "127.0.0.1",
-]
-
+                    "0.0.0.0",
+                    "127.0.0.1"
+                ] + getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
 # Application definition
 
@@ -84,21 +86,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm_system.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+
+DATABASE_NAME = getenv(
+    "DATABASE_NAME",
+    "postgres",
+)
+DATABASE_USER = getenv(
+    "DATABASE_USER",
+    "postgres",
+)
+DATABASE_PASSWORD = getenv(
+    "DATABASE_PASSWORD",
+    "postgres",
+)
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
         'HOST': 'postgres',
         'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -131,7 +145,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
