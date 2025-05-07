@@ -3,56 +3,51 @@ from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
+    ListView,
+    DetailView,
     CreateView,
     UpdateView,
     DeleteView)
 from django.shortcuts import reverse
 from django.urls import reverse_lazy
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.response import Response
 
 from .models import Contract
-from .serializers import ContractSerializer
 from .forms import ContractForm
 
 
-class ContractViewSet(ModelViewSet):
-    """
-    Набор представлений для действий над Contract.
-    Полный CRUD для сущностей товара
-    """
-    renderer_classes = [TemplateHTMLRenderer]
+class ContractDetailsView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """Класс реализует получения информации об объекте Контракт"""
+    permission_required = "contracts.view_contract"
+    raise_exception = True
+
+    model = Contract
+    queryset = Contract.objects.select_related("service")
+    template_name = "contracts/contract-detail.html"
+
+
+class ContractListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс реализует получения списков объектов Контракт"""
+    permission_required = "contracts.view_contract"
+    raise_exception = True
+
+    model = Contract
     queryset = Contract.objects.select_related("service").all()
-    serializer_class = ContractSerializer
+    template_name = "contracts/contract-list.html"
+    paginate_by = 10
 
-    def get_template_names(self):
-        """Метод переопределяет шаблоны для вывода списка Контрактов и деталей одного Контракта"""
-        if self.action == 'list':
-            return ['contracts/contract_list.html']
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text', '')
+        queryset = super().get_queryset()
 
-        if self.action == 'retrieve':
-            return ['contracts/contract_detail.html']
-        return super().get_template_names()
-
-    def list(self, request, *args, **kwargs):
-        search_text = request.GET.get('search_text', '')
-        queryset = self.get_queryset()
         if search_text:
             queryset = queryset.filter(title__icontains=search_text)
 
-        context = {
-            'object_list': queryset,
-            'search_text': search_text,
-        }
-        return Response(context)
+        return queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        context = {
-            'object': instance,
-        }
-        return Response(context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_text'] = self.request.GET.get('search_text', '')
+        return context
 
 
 class ContractCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

@@ -8,9 +8,44 @@ from contracts.models import Contract
 from .models import ActiveClient
 
 
-class ActiveClientViewSetTestCase(TestCase):
-    """Класс тестирования функции получения списка Активных клиентов и
-    деталей отдного Активного клиента"""
+class ActiveClientDetailTestCase(TestCase):
+    """Класс тестирования функции получения деталей одного Активного клиента"""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.potent_client = Client.objects.create(fullName="test_name1")
+        cls.active_client = ActiveClient.objects.create(client=cls.potent_client)
+        cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_activeclient',
+            content_type__app_label='active_clients')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.potent_client.delete()
+        cls.active_client.delete()
+        cls.user.delete()
+
+    def setUp(self) -> None:
+        self.client.force_login(self.user)
+
+    def test_get_active_client(self):
+        """Тест успешного получения деталей Активного клиента"""
+        response = self.client.get(
+            reverse(
+                "active_clients:activeclient-detail",
+                kwargs={"pk": self.active_client.pk}),
+        )
+
+        self.assertContains(response, self.active_client.client.fullName)
+
+
+class ActiveClientListTestCase(TestCase):
+    """Класс тестирования функции получения списка Активных клиентов"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.potent_client_first = Client.objects.create(fullName="test_name1")
@@ -18,6 +53,12 @@ class ActiveClientViewSetTestCase(TestCase):
         cls.potent_client_second = Client.objects.create(fullName="test_name2")
         cls.active_client_second = ActiveClient.objects.create(client=cls.potent_client_second)
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_activeclient',
+            content_type__app_label='active_clients')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
 
     @classmethod
     def tearDownClass(cls) -> None:
@@ -29,16 +70,6 @@ class ActiveClientViewSetTestCase(TestCase):
 
     def setUp(self) -> None:
         self.client.force_login(self.user)
-
-    def test_get_active_client(self):
-        """Тест успешного получения деталей Активного клиента"""
-        response = self.client.get(
-            reverse(
-                "active_clients:activeclient-detail",
-                kwargs={"pk": self.active_client_first.pk}),
-        )
-
-        self.assertContains(response, self.active_client_first.client.fullName)
 
     def test_get_list_active_clients(self):
         """Тест успешного получения списка Активных клиентов"""
@@ -52,6 +83,7 @@ class ActiveClientViewSetTestCase(TestCase):
 
 class ActiveClientCreateViewTestCase(TestCase):
     """Класс тестирования функции создания Активного клиента"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
@@ -91,6 +123,7 @@ class ActiveClientCreateViewTestCase(TestCase):
 
 class ActiveClientUpdateViewTestCase(TestCase):
     """Класс тестирования функции изменения Активного клиента"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
@@ -135,6 +168,7 @@ class ActiveClientUpdateViewTestCase(TestCase):
 
 class ActiveClientDeleteViewTestCase(TestCase):
     """Класс тестирования функции удаления объекта Активный клиент"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")

@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список потенциальных клиентов
+{% endblock %}
+
+{% block body %}
+<h1>Потенциальные клиенты</h1>
+
+<div class="mb-3">
+    <form method="get">
+        <div class="input-group mb-3">
+          <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Найти</button>
+          <input name="search_text" type="text" class="form-control" placeholder="Введите текст для поиска" value="{{ search_text }}" aria-label="Example text with button addon" aria-describedby="button-addon1">
+        </div>
+    </form>
+</div>
+<br>
+<div>
+    <a href="{% url 'clients:client_create' %}" class="btn btn-secondary">Создать запись о потенциальном клиенте</a>
+</div>
+<br>
+<table class="table table-striped">
+    <thead>
+      <tr>
+          <th scope="col"><h4>Потенциальный клиент</h4></th>
+          <th scope="col"><h4>Рекламная кампания - источник</h4></th>
+          <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for client in object_list %}
+        <tr>
+            <td>
+              <a href="{% url 'clients:client-detail' pk=client.pk %}">
+                  <h5 class="mb-1">{{ client.fullName }}</h5>
+              </a>
+            </td>
+            <td><h5>{{ client.advertisement }}</h5></td>
+            <td>
+                {% if perms.clients.delete_client %}
+                <a href="{% url 'clients:client_delete' pk=client.pk %}" class="btn btn-sm btn-danger">
+                    Удалить
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">
+            {% if search_text %}
+                По вашему запросу потенциальные клиенты не найдены
+            {% else %}
+                Потенциальных клиентов еще нет
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+</table>
+
+{% if is_paginated %}
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page=1{% if search_text %}&search_text={{ search_text }}{% endif %}">&laquo;&laquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_text %}&search_text={{ search_text }}{% endif %}">&laquo;</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo;&laquo;</span></li>
+      <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+    {% endif %}
+
+    {% for num in paginator.page_range %}
+      {% if num == page_obj.number %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}{% if search_text %}&search_text={{ search_text }}{% endif %}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_text %}&search_text={{ search_text }}{% endif %}">&raquo;</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="?page={{ paginator.num_pages }}{% if search_text %}&search_text={{ search_text }}{% endif %}">&raquo;&raquo;</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+      <li class="page-item disabled"><span class="page-link">&raquo;&raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

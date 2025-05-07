@@ -7,8 +7,8 @@ from services.models import Service
 from .models import Contract
 
 
-class ContractViewSetTestCase(TestCase):
-    """Класс тестирования функции получения списка объектов Контракт и
+class ContractDetailViewTestCase(TestCase):
+    """Класс тестирования функции получения
     деталей одного объекта Контракт"""
 
     @classmethod
@@ -16,14 +16,17 @@ class ContractViewSetTestCase(TestCase):
         cls.service = Service.objects.create(title="test_service")
         cls.contract = Contract.objects.create(service=cls.service,
                                                title="test_contract")
-        cls.contract_second = Contract.objects.create(service=cls.service,
-                                                      title="test_contract")
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_contract',
+            content_type__app_label='contracts')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.contract.delete()
-        cls.contract_second.delete()
         cls.service.delete()
         cls.user.delete()
 
@@ -38,6 +41,35 @@ class ContractViewSetTestCase(TestCase):
         )
 
         self.assertContains(response, self.contract.title)
+
+
+class ContractListViewTestCase(TestCase):
+    """Класс тестирования функции получения списка объектов Контракт"""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.service = Service.objects.create(title="test_service")
+        cls.contract = Contract.objects.create(service=cls.service,
+                                               title="test_contract")
+        cls.contract_second = Contract.objects.create(service=cls.service,
+                                                      title="test_contract")
+        cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_contract',
+            content_type__app_label='contracts')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.contract.delete()
+        cls.contract_second.delete()
+        cls.service.delete()
+        cls.user.delete()
+
+    def setUp(self) -> None:
+        self.client.force_login(self.user)
 
     def test_get_list_contracts(self):
         """Тест успешного получения списка объектов Контракт"""

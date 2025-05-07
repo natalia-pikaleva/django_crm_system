@@ -2,56 +2,50 @@
 # pylint: disable=no-member
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import (
+    ListView,
+    DetailView,
     CreateView,
     UpdateView,
     DeleteView)
 from django.shortcuts import reverse
 from django.urls import reverse_lazy
-from rest_framework.viewsets import ModelViewSet
-
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.response import Response
 
 from .models import Service
-from .serializers import ServiceSerializer
 
 
-class ServiceViewSet(ModelViewSet):
-    """
-    Набор представлений для действий над Service.
-    Полный CRUD для сущностей товара
-    """
-    renderer_classes = [TemplateHTMLRenderer]
+class ServiceDetailsView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """Класс реализует получения информации об объекте Услуга"""
+    permission_required = "services.view_service"
+    raise_exception = True
+
+    model = Service
+    queryset = Service.objects
+    template_name = "services/service-detail.html"
+
+
+class ServiceListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс реализует получения списков объектов Услуга"""
+    permission_required = "services.view_service"
+    raise_exception = True
+
+    model = Service
     queryset = Service.objects.all()
-    serializer_class = ServiceSerializer
+    template_name = "services/service-list.html"
+    paginate_by = 10
 
-    def get_template_names(self):
-        """Метод переопределяет шаблоны для вывода списка услуг и деталей одной услуги"""
-        if self.action == 'list':
-            return ['services/service_list.html']
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text', '')
+        queryset = super().get_queryset()
 
-        if self.action == 'retrieve':
-            return ['services/service_detail.html']
-        return super().get_template_names()
-
-    def list(self, request, *args, **kwargs):
-        search_text = request.GET.get('search_text', '')
-        queryset = self.get_queryset()
         if search_text:
             queryset = queryset.filter(title__icontains=search_text)
 
-        context = {
-            'object_list': queryset,
-            'search_text': search_text,
-        }
-        return Response(context)
+        return queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        context = {
-            'object': instance,
-        }
-        return Response(context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_text'] = self.request.GET.get('search_text', '')
+        return context
 
 
 class ServiceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -62,6 +56,7 @@ class ServiceCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
     model = Service
     fields = "title", "price", "description"
     success_url = reverse_lazy("services:service-list")
+
 
 class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     """Класс реализует изменение объекта Услуга"""
@@ -77,6 +72,7 @@ class ServiceUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView)
             "services:service-detail",
             kwargs={"pk": self.object.pk},
         )
+
 
 class ServiceDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     """Класс реализует удаление объекта Услуга"""

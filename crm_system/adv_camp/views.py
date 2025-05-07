@@ -2,55 +2,48 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from django.views.generic import (
+    ListView,
+    DetailView,
     CreateView,
     UpdateView,
     DeleteView)
 from django.shortcuts import reverse
 from django.urls import reverse_lazy
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.response import Response
 
 from .models import Advertisement
-from .serializers import AdvertisementSerializer
 
 
-class AdvCampViewSet(ModelViewSet):
-    """
-    Набор представлений для действий над Advertisement.
-    Полный CRUD для сущностей товара
-    """
-    renderer_classes = [TemplateHTMLRenderer]
+class AdvCampDetailsView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """Класс реализует получение информации об объекте Рекламная кампания"""
+    permission_required = "adv_camp.view_advertisement"
+    raise_exception = True
+
+    model = Advertisement
+    queryset = Advertisement.objects.select_related("service")
+    template_name = "adv_camp/advertisement-detail.html"
+
+
+class AdvCampListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс реализует получения списков объектов Рекламная кампания"""
+    model = Advertisement
     queryset = Advertisement.objects.select_related("service").all()
-    serializer_class = AdvertisementSerializer
+    permission_required = "adv_camp.view_advertisement"
+    paginate_by = 10
+    template_name = "adv_camp/advertisement-list.html"
 
-    def get_template_names(self):
-        """Переопределение шаблонов для списка и для просмотра элемента"""
-        if self.action == 'list':
-            return ['adv_camp/advertisement_list.html']
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text', '')
+        queryset = super().get_queryset()
 
-        if self.action == 'retrieve':
-            return ['adv_camp/advertisement_detail.html']
-        return super().get_template_names()
-
-    def list(self, request, *args, **kwargs):
-        search_text = request.GET.get('search_text', '')
-        queryset = self.get_queryset()
         if search_text:
             queryset = queryset.filter(title__icontains=search_text)
 
-        context = {
-            'object_list': queryset,
-            'search_text': search_text,
-        }
-        return Response(context)
+        return queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        context = {
-            'object': instance,
-        }
-        return Response(context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_text'] = self.request.GET.get('search_text', '')
+        return context
 
 
 class AdvCampCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

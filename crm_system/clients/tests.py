@@ -8,9 +8,10 @@ from services.models import Service
 from .models import Client
 
 
-class ClientViewSetTestCase(TestCase):
-    """Класс тестирования функции получения списка объектов Потенциальный клиент и
+class ClientDetailViewTestCase(TestCase):
+    """Класс тестирования функции получения
     деталей одного объекта Потенциальный клиент"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.service = Service.objects.create(title="test_service")
@@ -18,14 +19,17 @@ class ClientViewSetTestCase(TestCase):
                                                          title="test_advert")
         cls.pot_client = Client.objects.create(fullName="test_fullName",
                                                advertisement=cls.advertisement)
-        cls.pot_client_second = Client.objects.create(fullName="test_fullName_second",
-                                                      advertisement=cls.advertisement)
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_client',
+            content_type__app_label='clients')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.pot_client.delete()
-        cls.pot_client_second.delete()
         cls.advertisement.delete()
         cls.service.delete()
         cls.user.delete()
@@ -42,6 +46,38 @@ class ClientViewSetTestCase(TestCase):
 
         self.assertContains(response, self.pot_client.fullName)
 
+
+class ClientListViewTestCase(TestCase):
+    """Класс тестирования функции получения списка объектов Потенциальный клиент"""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.service = Service.objects.create(title="test_service")
+        cls.advertisement = Advertisement.objects.create(service=cls.service,
+                                                         title="test_advert")
+        cls.pot_client = Client.objects.create(fullName="test_fullName",
+                                               advertisement=cls.advertisement)
+        cls.pot_client_second = Client.objects.create(fullName="test_fullName_second",
+                                                      advertisement=cls.advertisement)
+        cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_client',
+            content_type__app_label='clients')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.pot_client.delete()
+        cls.pot_client_second.delete()
+        cls.advertisement.delete()
+        cls.service.delete()
+        cls.user.delete()
+
+    def setUp(self) -> None:
+        self.client.force_login(self.user)
+
     def test_get_list_clients(self):
         """Тест успешного получения списка объектов Потенциальный клиент"""
         response = self.client.get(
@@ -54,6 +90,7 @@ class ClientViewSetTestCase(TestCase):
 
 class ClientCreateViewTestCase(TestCase):
     """Класс тестирования функции создания объекта Потенциальный клиент"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
@@ -96,6 +133,7 @@ class ClientCreateViewTestCase(TestCase):
 
 class ClientUpdateViewTestCase(TestCase):
     """Класс тестирования функции изменения объекта Потенциальный клиент"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
@@ -147,6 +185,7 @@ class ClientUpdateViewTestCase(TestCase):
 
 class ClientDeleteViewTestCase(TestCase):
     """Класс тестирования функции удаления объекта Потенциальный клиент"""
+
     @classmethod
     def setUpClass(cls) -> None:
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")

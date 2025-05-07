@@ -6,22 +6,26 @@ from django.urls import reverse
 from .models import Service
 
 
-class ServiceViewSetTestCase(TestCase):
-    """Класс тестирования функции получения списка объектов Услуга и
+class ServiceDetailViewTestCase(TestCase):
+    """Класс тестирования функции получения
     деталей одного объекта Услуга"""
 
     @classmethod
     def setUpClass(cls) -> None:
         cls.service = Service.objects.create(title="test_service_title",
                                              price=10000)
-        cls.service_second = Service.objects.create(title="test_service_second",
-                                                    price=10000)
+
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_service',
+            content_type__app_label='services')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.service.delete()
-        cls.service_second.delete()
         cls.user.delete()
 
     def setUp(self) -> None:
@@ -35,6 +39,33 @@ class ServiceViewSetTestCase(TestCase):
         )
 
         self.assertContains(response, self.service.title)
+
+
+class ServiceListViewTestCase(TestCase):
+    """Класс тестирования функции получения списка объектов Услуга"""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.service = Service.objects.create(title="test_service_title",
+                                             price=10000)
+        cls.service_second = Service.objects.create(title="test_service_second",
+                                                    price=10000)
+        cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_service',
+            content_type__app_label='services')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.service.delete()
+        cls.service_second.delete()
+        cls.user.delete()
+
+    def setUp(self) -> None:
+        self.client.force_login(self.user)
 
     def test_get_list_services(self):
         """Тест успешного получения списка объектов Услуга"""
