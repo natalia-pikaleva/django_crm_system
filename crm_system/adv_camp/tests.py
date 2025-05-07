@@ -7,8 +7,8 @@ from services.models import Service
 from .models import Advertisement
 
 
-class AdvCampViewSetTestCase(TestCase):
-    """Класс тестирования функции получения списка Рекламных кампаний и деталей
+class AdvCampDetailViewTestCase(TestCase):
+    """Класс тестирования функции получения деталей
     одной Рекламной кампании"""
 
     @classmethod
@@ -16,17 +16,18 @@ class AdvCampViewSetTestCase(TestCase):
         cls.service = Service.objects.create(title="test_service_title")
         cls.advertisement = Advertisement.objects.create(service=cls.service,
                                                          title="test_advert_title")
-        cls.service_second = Service.objects.create(title="test_service_title_second")
-        cls.advertisement_second = Advertisement.objects.create(service=cls.service_second,
-                                                                title="test_advert_title_second")
         cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_advertisement',
+            content_type__app_label='adv_camp')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.advertisement.delete()
         cls.service.delete()
-        cls.advertisement_second.delete()
-        cls.service_second.delete()
         cls.user.delete()
 
     def setUp(self) -> None:
@@ -40,6 +41,37 @@ class AdvCampViewSetTestCase(TestCase):
         )
 
         self.assertContains(response, self.advertisement.title)
+
+
+class AdvCampListlViewTestCase(TestCase):
+    """Класс тестирования функции получения списка Рекламных кампаний"""
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.service = Service.objects.create(title="test_service_title")
+        cls.advertisement = Advertisement.objects.create(service=cls.service,
+                                                         title="test_advert_title")
+        cls.service_second = Service.objects.create(title="test_service_title_second")
+        cls.advertisement_second = Advertisement.objects.create(service=cls.service_second,
+                                                                title="test_advert_title_second")
+        cls.user = User.objects.create_user(username="Bob_test", password="qwerty")
+
+        permission = Permission.objects.get(
+            codename='view_advertisement',
+            content_type__app_label='adv_camp')
+        cls.user.user_permissions.add(permission)
+        cls.user.save()
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        cls.advertisement.delete()
+        cls.service.delete()
+        cls.advertisement_second.delete()
+        cls.service_second.delete()
+        cls.user.delete()
+
+    def setUp(self) -> None:
+        self.client.force_login(self.user)
 
     def test_get_list_advertisements(self):
         """Тест успешного получения списка объектов Рекламной кампании"""

@@ -2,55 +2,50 @@
 from urllib.parse import urlencode, urlparse, parse_qs, urlunparse
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views.generic import (
+    ListView,
+    DetailView,
     CreateView,
     UpdateView,
     DeleteView)
 from django.urls import reverse
 from django.urls import reverse_lazy
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.response import Response
 
 from .models import Client
-from .serializers import ClientSerializer
 
 
-class ClientViewSet(ModelViewSet):
-    """
-    Набор представлений для действий над Client.
-    Полный CRUD для сущностей товара
-    """
-    renderer_classes = [TemplateHTMLRenderer]
+class ClientDetailsView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    """Класс реализует получения информации об объекту Потенциальный клиент"""
+    permission_required = "clients.view_client"
+    raise_exception = True
+
+    model = Client
+    queryset = Client.objects.select_related("advertisement")
+    template_name = "clients/client-detail.html"
+
+
+class ClientListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    """Класс реализует получения списков объектов Потенциальный клиент"""
+    permission_required = "clients.view_client"
+    raise_exception = True
+
+    model = Client
     queryset = Client.objects.select_related("advertisement").all()
-    serializer_class = ClientSerializer
+    template_name = "clients/client-list.html"
+    paginate_by = 10
 
-    def get_template_names(self):
-        """Переопределение шаблонов для вывода списка объектов и деталей одного объекта"""
-        if self.action == 'list':
-            return ['clients/client_list.html']
+    def get_queryset(self):
+        search_text = self.request.GET.get('search_text', '')
+        queryset = super().get_queryset()
 
-        if self.action == 'retrieve':
-            return ['clients/client_detail.html']
-        return super().get_template_names()
-
-    def list(self, request, *args, **kwargs):
-        search_text = request.GET.get('search_text', '')
-        queryset = self.get_queryset()
         if search_text:
             queryset = queryset.filter(fullName__icontains=search_text)
 
-        context = {
-            'object_list': queryset,
-            'search_text': search_text,
-        }
-        return Response(context)
+        return queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        context = {
-            'object': instance,
-        }
-        return Response(context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_text'] = self.request.GET.get('search_text', '')
+        return context
 
 
 class ClientCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
